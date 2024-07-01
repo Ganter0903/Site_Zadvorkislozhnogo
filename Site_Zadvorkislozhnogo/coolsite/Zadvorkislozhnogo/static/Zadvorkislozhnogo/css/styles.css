@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+body { 
+    overflow: scroll;
+}
+main {
+    height: 200vh;
+    text-align: center;
+}
+
+footer {
+    box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.5);
+    height: 100px;
+    background-color: white;
+}
+
+header {
+    box-shadow: 0px -5px 11px 0px rgba(0, 0, 0, 0.5);
+    height: 60px;
+    width: auto;
+    background-color: white;
+}
+
+#text-authors {
+    text-align: center;
+}
+
+#text-new {
+    text-align: center;
+}
+
+#text-week {
+    text-align: center;
+}
+
+#block-new  {
+    height: 70vh;
+    width: 60vh;
+    background: white;
+    border: 2px solid silver;
+    border-radius: 25px;
+    text-align: center;
+    
+}
+#block-top-week {
+    color: rgb(76, 76, 76);
+    height: 70vh;
+    width: 60vh;
+    background: white;
+    border: 2px solid silver;
+    border-radius: 25px;
+    text-align: center;
+}
+.main-content {
+    text-align: center;
+}
+#nav-link:hover {
+    color:rgb(76, 76, 76);
+    padding: 19px;
+    font-weight: bold;
+}
+#nav-link {
+    color:gray;
+    text-align: center;
+    padding:0px 8px;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.nav-link {
+    text-decoration: none;
+    height: 5px;
+	text-align: center;
+    transform: translateY(15px) translateX(0px);
+
+}
+.fix-links {
+    width: 100%;
+	text-align: center;
+    line-height: 40px;
+}
+#fix-links:hover {
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+}
+#fix-links {
+    padding:0px 5px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    color: rgb(76, 76, 76);
+}
+.nav-authors {
+    color:black;
+    margin: auto;
+}
+.navbar-main {
+    height: 5px;
+    text-align: left;
+    transform: translateY(15px) translateX(70px);
+}
+#navbar-main:hover {
+    cursor: pointer;
+    color:rgb(76, 76, 76);
+}
+#navbar-main {
+    color:gray;
+    font-size: 27px;    
+    text-decoration: none;
+}
+.nav-link-reg-and-enter {
+    height: 5px;
+	text-align: right;
+    transform: translateY(10px) translateX(-100px);
+}
+#nav-link-reg-and-enter:hover {
+    color:rgb(76, 76, 76);
+}
+#nav-link-reg-and-enter {
+    color:gray;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: right;
+}
+
+#copyright {
+    text-align: right;
+    transform: translateY(15px) translateX(0px);
+    color: rgb(76, 76, 76);
+}
+
+#content-authors {
+    width: 1115px;
+    height: 250px;
+    background: white;/* Цвет фона левой колонки */
+    border: 2px solid silver; /* Параметры рамки */
+    border-radius: 65px;
+    transform: translateY(75px) translateX(203px);
+}  
+
+#content-blocks {
+    width: 100%; /* Ширина всей таблицы */
+   }
+   TD {
+    vertical-align: top;
+    padding: 40px; 
+    font-size: 30px;
+   }
+   TD#block-new {
+    width: 88px; 
+    height: 700px;
+    background: white;
+    border: 2px solid silver; 
+    border-radius: 100px;
+    transform: translateY(160px) translateX(200px);
+    color:gray;
+   }
+   TD#block-top-week {
+    width: 70px;
+    height: 700px;
+    background: white; 
+    border: 2px solid silver; 
+    border-radius: 100px;
+    transform: translateY(160px) translateX(-200px);
+    color:gray;
+   }
+   #spacer {
+    width: 100px;
+   }    
+#find-block{
+    font-size: 20px;
+    width: 400px;
+    text-align: center;
+    transform: translateY(40px) translateX(0px);
+}

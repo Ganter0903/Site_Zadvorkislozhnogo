@@ -12,12 +12,12 @@
     <link rel="shortcut icon" href="{% static 'Zadvorkislozhnogo/images/main.ico' %}" type="image/x-icon"/>
 </head>
 <body>
-  <!--Кнопка "Домой"-->
+    <!--Кнопка "Домой"-->
   <header>
     <div class="main-menu">
       <div class="navbar-main">       
         <a id="navbar-main" href="{% url 'home' %}">Задворки сложного</a>  
-      </div> 
+      </div>  
   <!--Кнопка "Домой"--> 
   <!--Навигационное меню-->
       <div class="nav-link">
@@ -26,35 +26,29 @@
         <a id="nav-link" href="{% url 'stories' %}">Рассказы</a>
         <a id="nav-link" href="{% url 'audiobooks' %}">Аудиокниги</a>
         <a id="nav-link" href="{% url 'blog' %}">Блог</a>
-      </div> 
+      </div>  
   <!--Навигационное меню-->
   <!--Кнопка входа-->
       <div class="nav-link-reg-and-enter">     
         <a id="nav-link-reg-and-enter" href="{% url 'home' %}">Войти / Зарегестрироваться</a>
-      </div> 
-  <!--Кнопка входа-->
+      </div>
+  <!--Кнопка входа--> 
     </div>  
   </header>
 <main>
-    <!--Блок Популярные авторы-->
+  <!--Окно поиска-->
+  <input id="find-block" type="text" placeholder="Поиск Автора">
+  <!--Окно поиска-->
+  <!--Окно Результатов-->
   <table id="content-authors">
     <tr>
-      <td id="block-authors">Популярные авторы</td>
+      <td id="block-authors">Здесь будут результаты поиска</td>
     </tr>
+  <!--Окно Результатов-->
   </table>
-  <!--Блок Популярные авторы-->
-  <!--Блок Новое и топ недели-->
-  <table id="content-blocks">
-    <tr> 
-     <td id="block-new">Новое</td>
-     <td id="spacer"></td>
-     <td id="block-top-week">Топ недели</td>
-    </tr>
-   </table>
- <!--Блок Новое и топ недели-->
 </main>
 <footer>
-   <!--Блок со справочной информацией-->
+  <!--Блок со справочной информацией-->
     <div class="fix-links">            
                 <a id="fix-links" href="#">О нас</a>
                 <a id="fix-links" href="#">FAQ</a>
@@ -63,8 +57,8 @@
   <section>  
         <copyright id="copyright">© 2024 Zadvorki slozhnogo</copyright>   
   </section>     
-    </div>    
-   <!--Блок со справочной информацией-->    
+    </div> 
+  <!--Блок со справочной информацией-->       
 </footer>
 </body>
 </html>
