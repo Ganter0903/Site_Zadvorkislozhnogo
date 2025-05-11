@@ -31,3 +31,6 @@ def audiobooks(request):
 
 def blog(request):
     return render(request, 'blog.html', {'menu': menu, 'title': 'Блог'})
+
+def profile(request):
+    return render(request, 'profile.html', {'menu': menu, 'title': 'Профиль'})

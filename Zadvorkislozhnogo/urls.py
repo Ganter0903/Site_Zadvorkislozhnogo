@@ -4,9 +4,10 @@ from .views import *
 
 urlpatterns = [
     path('', index, name='home'),
-    path('Авторы/', Authors, name='authors'),
-    path('Стихи/', poetry, name='poetry'),
-    path('Рассказы/', stories, name='stories'),
-    path('Аудиокниги/', audiobooks, name='audiobooks'),
-    path('Блог/', blog, name='blog'),
+    path('authors/', Authors, name='authors'),
+    path('poetry/', poetry, name='poetry'),
+    path('stories/', stories, name='stories'),
+    path('audiobooks/', audiobooks, name='audiobooks'),
+    path('blog/', blog, name='blog'),
+    path('profile/', profile, name='profile'),
 ]

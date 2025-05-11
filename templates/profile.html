@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container-xl justify-content-center">
+    <div class="row">
+      <!-- Левая панель -->
+      <div class="col">
+        <div class="panel text-center">
+          <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="аватар" class="avatar-img mb-2">
+          <h6 class="mb-3">Иванов Иван Иванович</h6>
+          <div class="d-flex justify-content-center align-items-center mb-3">
+            <span class="me-2">0$</span>
+            <button class="btn btn-outline-secondary btn-sm">Баланс</button>
+          </div>
+          <hr>
+          <p class="mb-3">Мои произведения</p>
+          <button class="btn btn-outline-primary">Начать публикацию</button>
+        </div>
+      </div>
+  
+      <!-- Правая панель -->
+      <div class="col">
+        <div class="panel">
+          <div class="right-menu">
+            <a href="#"><i class="fas fa-user-edit"></i> Редактировать профиль</a>
+            <a href="#"><i class="fas fa-chart-line"></i> Статистика</a>
+            <a href="#"><i class="fas fa-pencil-alt"></i> Редактировать профиль</a>
+            <a href="#"><i class="fas fa-heart"></i> Мои подписки</a>
+            <a href="#"><i class="fas fa-newspaper"></i> Новости</a>
+            <a href="#"><i class="fas fa-bookmark"></i> Мои закладки</a>
+            <a href="#"><i class="fas fa-envelope"></i> Мои сообщения</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+            <a href="#"><i class="fas fa-chart-pie"></i> Аналитика</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

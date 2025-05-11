@@ -1,0 +1,36 @@
+.panel {
+    border: 1px solid #dee2e6;
+    border-radius: 1rem;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+  .avatar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #000;
+  }
+
+  .right-menu a {
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #212529;
+    transition: background-color 0.2s;
+  }
+
+  .right-menu a:hover {
+    background-color: #e2e6ea;
+  }
+
+  .right-menu i {
+    margin-right: 10px;
+    color: #0d6efd;
+    min-width: 20px;
+    text-align: center;
+  }
