@@ -42,3 +42,64 @@
   border-radius: 1rem;
   background-color: #f8f9fa;
 }
+
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.5;
+  color: antiquewhite;
+}
+
+.rounded-panel {
+  border: 1px solid #dee2e6;
+  border-radius: 1.5rem;
+  padding: 20px;
+  background-color: #f8f9fa;
+  margin-bottom: 30px;
+}
+
+.avatar-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #000;
+}
+
+.author-name {
+  font-size: 0.9rem;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.work-entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.work-entry img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.work-meta {
+  flex-grow: 1;
+}
+
+.work-meta small {
+  color: #6c757d;
+}
+
+.views {
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+.section-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}

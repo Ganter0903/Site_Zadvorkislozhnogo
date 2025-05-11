@@ -1,7 +1,105 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div>
-    
+<div class="container mt-5">
+  <!-- Популярные авторы -->
+  <div class="rounded-panel text-center">
+    <h5 class="mb-4">Популярные авторы</h5>
+    <div class="d-flex justify-content-around flex-wrap">
+      <div>
+        <img src="https://randomuser.me/api/portraits/men/10.jpg" class="avatar-small" alt="автор">
+        <div class="author-name">Анатолий Евграфов</div>
+      </div>
+      <div>
+        <img src="https://randomuser.me/api/portraits/men/20.jpg" class="avatar-small" alt="автор">
+        <div class="author-name">Анатолий Евграфов</div>
+      </div>
+      <div>
+        <img src="https://randomuser.me/api/portraits/men/30.jpg" class="avatar-small" alt="автор">
+        <div class="author-name">Анатолий Евграфов</div>
+      </div>
+      <div>
+        <img src="https://randomuser.me/api/portraits/men/40.jpg" class="avatar-small" alt="автор">
+        <div class="author-name">Анатолий Евграфов</div>
+      </div>
+    </div>
   </div>
+
+  <!-- Новое и Топ недели -->
+  <div class="row">
+    <!-- Новое -->
+    <div class="col-md-6">
+      <div class="rounded-panel">
+        <div class="section-title">Новое</div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="views">356 просмотров</div>
+        </div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="views">356 просмотров</div>
+        </div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="views">356 просмотров</div>
+        </div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="views">356 просмотров</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Топ недели -->
+    <div class="col-md-6">
+      <div class="rounded-panel">
+        <div class="section-title">Топ недели</div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+        </div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+        </div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+        </div>
+        <div class="work-entry">
+          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
+          <div class="work-meta">
+            <div>Стих о природе</div>
+            <small>Анатолий Евграфов</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
