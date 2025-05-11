@@ -1,20 +1,28 @@
-<div class="main-menu">
-    <div class="navbar-main">       
-      <a id="navbar-main" href="{% url 'home' %}">Задворки сложного</a>  
-    </div> 
-<!--Кнопка "Домой"--> 
-<!--Навигационное меню-->
-    <div class="nav-link">
-      <a id="nav-link" href="{% url 'authors' %}">Авторы</a>    
-      <a id="nav-link" href="{% url 'poetry' %}">Стихи</a>
-      <a id="nav-link" href="{% url 'stories' %}">Рассказы</a>
-      <a id="nav-link" href="{% url 'audiobooks' %}">Аудиокниги</a>
-      <a id="nav-link" href="{% url 'blog' %}">Блог</a>
-    </div> 
-<!--Навигационное меню-->
-<!--Кнопка входа-->
-    <div class="nav-link-reg-and-enter">     
-      <a id="nav-link-reg-and-enter" href="{% url 'home' %}">Войти / Зарегестрироваться</a>
-    </div> 
-<!--Кнопка входа-->
-</div>  
+<header class="py-3 border-bottom">
+  <div class="container d-flex flex-wrap justify-content-center">
+    <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+      <span class="fs-4">Задворки сложного</span>
+    </a>
+    <form class="col-12 col-lg-auto mb-3 mb-lg-0">
+      <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
+    </form>
+  </div>
+</header>
+
+<nav class="py-2 mb-4 bg-light border-top">
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto">
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Домой</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Авторы</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Стихи</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Рассказы</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Аудиокниги</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Блог</a></li>
+    </ul>
+    <ul class="nav">
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Войти</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Регистрация</a></li>
+    </ul>
+  </div>
+</nav>
