@@ -26,6 +26,9 @@ def poetry(request):
 def stories(request):
     return render(request, 'stories.html', {'menu': menu, 'title': 'Рассказы'})
 
+def article(request):
+    return render(request, 'article.html', {'menu': menu, 'title': 'Рассказ'})
+
 def audiobooks(request):
     return render(request, 'audiobooks.html', {'menu': menu, 'title': 'Аудиокниги'})
 
