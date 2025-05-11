@@ -34,3 +34,15 @@ def blog(request):
 
 def profile(request):
     return render(request, 'profile.html', {'menu': menu, 'title': 'Профиль'})
+
+def auth(request):
+    return render(request, 'auth.html', {'menu': menu, 'title': 'Авторизация'})
+
+def register(request):
+    return render(request, 'register.html', {'menu': menu, 'title': 'Регистрация'})
+
+def forgot_password(request):
+    return render(request, 'forgot_password.html', {'menu': menu, 'title': 'Восстановление пароля'})
+
+def verify(request):
+    return render(request, 'verify.html', {'menu': menu, 'title': 'Верификация'})
