@@ -11,23 +11,23 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
 def index(request):
     posts = Users.objects.all()
 
-    return render(request, 'Zadvorkislozhnogo/index.html', {'menu': menu, 'title': 'Задворки сложного - официальный сайт'})
+    return render(request, 'index.html', {'menu': menu, 'title': 'Задворки сложного - официальный сайт'})
 
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 def Authors(request):
-    return render(request, 'Zadvorkislozhnogo/Authors.html', {'menu': menu, 'title': 'Авторы'})
+    return render(request, 'Authors.html', {'menu': menu, 'title': 'Авторы'})
 
 def poetry(request):
-    return render(request, 'Zadvorkislozhnogo/poetry.html', {'menu': menu, 'title': 'Стихи'})
+    return render(request, 'poetry.html', {'menu': menu, 'title': 'Стихи'})
 
 def stories(request):
-    return render(request, 'Zadvorkislozhnogo/stories.html', {'menu': menu, 'title': 'Рассказы'})
+    return render(request, 'stories.html', {'menu': menu, 'title': 'Рассказы'})
 
 def audiobooks(request):
-    return render(request, 'Zadvorkislozhnogo/audiobooks.html', {'menu': menu, 'title': 'Аудиокниги'})
+    return render(request, 'audiobooks.html', {'menu': menu, 'title': 'Аудиокниги'})
 
 def blog(request):
-    return render(request, 'Zadvorkislozhnogo/blog.html', {'menu': menu, 'title': 'Блог'})
+    return render(request, 'blog.html', {'menu': menu, 'title': 'Блог'})
