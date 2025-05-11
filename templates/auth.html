@@ -15,7 +15,7 @@
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль">
         </div>
         <button type="submit" class="btn btn-primary mt-4">Войти</button>
-        <button type="submit" class="btn btn-outline-primary mt-4">Забыли пароль?</button>
+        <a class="btn btn-outline-primary mt-4" href="{% url 'main:forgot_password' %}">Забыли пароль?</a>
     </form>
 </div>
 {% endblock %}
