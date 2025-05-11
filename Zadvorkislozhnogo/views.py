@@ -46,3 +46,18 @@ def forgot_password(request):
 
 def verify(request):
     return render(request, 'verify.html', {'menu': menu, 'title': 'Верификация'})
+
+# views.py
+def chart_view(request):
+    context = {
+        'months': ['Янв', 'Фев', 'Мар', 'Апр', 'Май'],
+        'subscribers': [141, 135, 150, 142, 148],
+
+        'categories': ['Баллада', 'Поэма', 'Роман в стихах', 'Сонет', 'Романс', 'Басня', 'Эпос'],
+        'articles': ["Затмение", "Матери и дети", "Война и наказание", "Прок", "Метель"],
+        'views_today': [300, 200, 150, 70, 90, 120, 80],
+        'likes': [80, 50, 60, 30, 40, 20, 10],
+        'views_month': [4000, 3200, 280, 1500, 2000, 1200, 800],
+        'title': 'Аналитика',
+    }
+    return render(request, 'chart.html', context)

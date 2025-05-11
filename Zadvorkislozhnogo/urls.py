@@ -16,4 +16,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('verify/', verify, name='verify'),
     path('forgot_password/', forgot_password, name='forgot_password'),
+    path('chart/', chart_view, name='chart'),
 ]
