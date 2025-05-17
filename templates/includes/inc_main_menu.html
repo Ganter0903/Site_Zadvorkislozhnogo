@@ -1,0 +1,27 @@
+<header class="py-3 border-bottom">
+  <div class="container d-flex flex-wrap justify-content-center">
+    <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+      <span class="fs-4">Задворки сложного</span>
+    </a>
+    <form class="col-12 col-lg-auto mb-3 mb-lg-0">
+      <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search">
+    </form>
+  </div>
+</header>
+
+<nav class="py-2 mb-4 bg-light border-top">
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto">
+      <li class="nav-item"><a href="{% url 'main:home' %}" class="nav-link link-dark px-2 active" aria-current="page">Домой</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Авторы</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Стихи</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Рассказы</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Аудиокниги</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Блог</a></li>
+    </ul>
+    <ul class="nav">
+      <li class="nav-item"><a href="{% url 'main:auth' %}" class="nav-link link-dark px-2">Войти</a></li>
+      <li class="nav-item"><a href="{% url 'main:register' %}" class="nav-link link-dark px-2">Регистрация</a></li>
+    </ul>
+  </div>
+</nav>

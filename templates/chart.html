@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card" style="width: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Количество подписчиков за последние 5 месяцев</h5>
+                    <canvas id="subscribersChart"></canvas>
+                </div>
+            </div>  
+        </div>
+
+        <div class="col-md-6">
+            <div class="card" style="width: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Просмотры за сегодня</h5>
+                    <canvas id="viewsTodayChart"></canvas>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- <div class="col-md-6">
+            <div class="card" style="width: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <canvas id="likesChart"></canvas>
+                </div>
+            </div>  
+        </div> -->
+
+        <div class="col">
+            <div class="card" style="width: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Просмотры жанров за май</h5>
+                    <canvas id="viewsMonthChart"></canvas>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<script>
+    const months = {{ months|safe }};
+    const subscribers = {{ subscribers|safe }};
+    const articles = {{ articles|safe }};
+
+    const categories = {{ categories|safe }};
+    const viewsToday = {{ views_today|safe }};
+    const likes = {{ likes|safe }};
+    const viewsMonth = {{ views_month|safe }};
+
+    new Chart(document.getElementById('subscribersChart'), {
+        type: 'line',
+        data: {
+        labels: months,
+        datasets: [{
+            label: 'Подписчики',
+            data: subscribers,
+            borderColor: '#2e4bab',
+            fill: false
+        }]
+        }
+    });
+
+    new Chart(document.getElementById('viewsTodayChart'), {
+        type: 'bar',
+        data: {
+        labels: articles,
+        datasets: [{
+            label: 'Просмотры сегодня',
+            data: viewsToday,
+            backgroundColor: '#1b6e22'
+        }]
+        }
+    });
+
+    new Chart(document.getElementById('likesChart'), {
+        type: 'bar',
+        data: {
+        labels: categories,
+        datasets: [{
+            label: 'Лайки по категориям',
+            data: likes,
+            backgroundColor: 'green'
+        }]
+        }
+    });
+
+    new Chart(document.getElementById('viewsMonthChart'), {
+        type: 'bar',
+        data: {
+        labels: categories,
+        datasets: [{
+            label: 'Просмотры за месяц',
+            data: viewsMonth,
+            backgroundColor: 'purple'
+        }]
+        }
+    });
+</script>
+{% endblock %}
