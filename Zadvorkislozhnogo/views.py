@@ -50,6 +50,9 @@ def forgot_password(request):
 def verify(request):
     return render(request, 'verify.html', {'menu': menu, 'title': 'Верификация'})
 
+def author_profile(request):
+    return render(request, 'author_profile.html', {'menu': menu, 'title': 'Профиль автора'})
+
 # views.py
 def chart_view(request):
     context = {

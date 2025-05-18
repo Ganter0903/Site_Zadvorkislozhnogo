@@ -198,3 +198,37 @@
   align-items: center;
   margin-bottom: 20px;
 }
+
+.avatar-lg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  object-fit: cover;
+}
+
+.stat {
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.work-card {
+  border: 2px solid #dcdcdc;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #f8f9fa;
+}
+
+.work-meta-1 {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
