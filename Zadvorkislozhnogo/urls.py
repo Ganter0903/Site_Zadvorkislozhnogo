@@ -7,6 +7,7 @@ app_name = 'main'
 urlpatterns = [
     path('', index, name='home'),
     path('authors/', Authors, name='authors'),
+    path('author_profile/', author_profile, name='author_profile'),
     path('poetry/', poetry, name='poetry'),
     path('stories/', stories, name='stories'),
     path('audiobooks/', audiobooks, name='audiobooks'),
