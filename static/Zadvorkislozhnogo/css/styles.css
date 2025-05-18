@@ -192,3 +192,9 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.author-entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}

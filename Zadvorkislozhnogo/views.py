@@ -18,7 +18,7 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 def Authors(request):
-    return render(request, 'Authors.html', {'menu': menu, 'title': 'Авторы'})
+    return render(request, 'authors.html', {'menu': menu, 'title': 'Авторы'})
 
 def poetry(request):
     return render(request, 'poetry.html', {'menu': menu, 'title': 'Стихи'})

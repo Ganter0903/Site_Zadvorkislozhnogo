@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="text-center mb-3">
+      <input type="text" class="form-control w-25 mx-auto" placeholder="Поиск автора">
+    </div>
+  
+    <div class="rounded-5 border p-4 bg-white">
+      <div class="list-group list-group-flush">
+        <div class="author-entry d-flex align-items-center justify-content-between mb-3 px-3 py-2 border rounded-4 bg-light">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" class="avatar-small" alt="Аватар">
+            <a href="#" class="author-name text-decoration-none text-dark text-center flex-grow-1 fs-5">
+              Автор Авторович Авторов
+            </a>
+        </div>
+        <div class="author-entry d-flex align-items-center justify-content-between mb-3 px-3 py-2 border rounded-4 bg-light">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" class="avatar-small" alt="Аватар">
+            <a href="#" class="author-name text-decoration-none text-dark text-center flex-grow-1 fs-5">
+              Автор Авторович Авторов
+            </a>
+        </div>
+        <div class="author-entry d-flex align-items-center justify-content-between mb-3 px-3 py-2 border rounded-4 bg-light">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" class="avatar-small" alt="Аватар">
+            <a href="#" class="author-name text-decoration-none text-dark text-center flex-grow-1 fs-5">
+              Автор Авторович Авторов
+            </a>
+        </div>
+        <div class="author-entry d-flex align-items-center justify-content-between mb-3 px-3 py-2 border rounded-4 bg-light">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" class="avatar-small" alt="Аватар">
+            <a href="#" class="author-name text-decoration-none text-dark text-center flex-grow-1 fs-5">
+              Автор Авторович Авторов
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
