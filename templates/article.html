@@ -17,11 +17,7 @@
         <div>Иванов Иван Иванович</div>
       </div>
 
-      <div class="interactions d-flex justify-content-center gap-4">
-        <a href="/like" class="text-decoration-none like text-dark"><i class="bi bi-heart"></i> 33</a>
-        <a href="/comment" class="text-decoration-none comment text-dark"><i class="bi bi-chat"></i> 8</a>
-        <a href="/bookmark" class="text-decoration-none fav text-dark"><i class="bi bi-bookmark"></i> 0</a>
-      </div>
+      {% include "includes/inc_interactions.html" %}
     </div>
 </div>
 {% endblock %}
