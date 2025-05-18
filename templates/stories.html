@@ -1,64 +1,54 @@
+{% extends "base.html" %}
 {% load static %}
-<!doctype html>
-<html>
-<head>
-    <title>{{ title }}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" href="{% static 'Zadvorkislozhnogo/css/styles.css' %}" rel="stylesheet" />
-    <link rel="shortcut icon" href="{% static 'Zadvorkislozhnogo/images/main.ico' %}" type="image/x-icon"/>
-</head>
-<body>
-    <!--Кнопка "Домой"-->
-  <header>
-    <div class="main-menu">
-      <div class="navbar-main">       
-        <a id="navbar-main" href="{% url 'home' %}">Задворки сложного</a>  
-      </div>  
-  <!--Кнопка "Домой"--> 
-  <!--Навигационное меню-->
-      <div class="nav-link">
-        <a id="nav-link" href="{% url 'authors' %}">Авторы</a>    
-        <a id="nav-link" href="{% url 'poetry' %}">Стихи</a>
-        <a id="nav-link" href="{% url 'stories' %}">Рассказы</a>
-        <a id="nav-link" href="{% url 'audiobooks' %}">Аудиокниги</a>
-        <a id="nav-link" href="{% url 'blog' %}">Блог</a>
-      </div>  
-  <!--Навигационное меню-->
-  <!--Кнопка входа-->
-      <div class="nav-link-reg-and-enter">     
-        <a id="nav-link-reg-and-enter" href="{% url 'home' %}">Войти / Зарегестрироваться</a>
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="text-center mb-3">
+    <input type="text" class="form-control w-25 mx-auto" placeholder="Поиск">
+  </div>
+
+  <div class="tab-content">
+    <!-- Поэзия -->
+    <div class="tab-pane fade show active" id="poetry">
+      <div class="work-card d-flex align-items-center">
+        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="автор" width="50" height="50" class="rounded-circle me-3">
+        <div>
+          <div class="work-title">
+            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
+          </div>
+          <div class="work-meta">
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="work-meta-1">356 просмотров &nbsp;·&nbsp; 23.12.2024</div>
+        </div>
       </div>
-  <!--Кнопка входа--> 
-    </div>  
-  </header>
-<main>
-  <!--Окно поиска-->
-  <input id="find-block" type="text" placeholder="Поиск Рассказов">
-  <!--Окно поиска-->
-  <!--Окно Результатов-->
-  <table id="content-authors">
-    <tr>
-      <td id="block-authors">Здесь будут результаты поиска</td>
-    </tr>
-  <!--Окно Результатов-->
-  </table>
-</main>
-<footer>
-  <!--Блок со справочной информацией-->
-    <div class="fix-links">            
-                <a id="fix-links" href="#">О нас</a>
-                <a id="fix-links" href="#">FAQ</a>
-                <a id="fix-links" href="#">Конфиденциальность</a>
-                <a id="fix-links" href="#">Обратная связь</a>                
-  <section>  
-        <copyright id="copyright">© 2024 Zadvorki slozhnogo</copyright>   
-  </section>     
-    </div> 
-  <!--Блок со справочной информацией-->       
-</footer>
-</body>
-</html>
+
+      <div class="work-card d-flex align-items-center">
+        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="автор" width="50" height="50" class="rounded-circle me-3">
+        <div>
+          <div class="work-title">
+            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
+          </div>
+          <div class="work-meta">
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="work-meta-1">356 просмотров &nbsp;·&nbsp; 23.12.2024</div>
+        </div>
+      </div>
+
+      <div class="work-card d-flex align-items-center">
+        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="автор" width="50" height="50" class="rounded-circle me-3">
+        <div>
+          <div class="work-title">
+            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
+          </div>
+          <div class="work-meta">
+            <small>Анатолий Евграфов</small>
+          </div>
+          <div class="work-meta-1">356 просмотров &nbsp;·&nbsp; 23.12.2024</div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
