@@ -9,7 +9,7 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Войти", 'url_name': 'login'}
 ]
 def index(request):
-    posts = Users.objects.all()
+    posts = User.objects.all()
 
     return render(request, 'index.html', {'menu': menu, 'title': 'Задворки сложного - официальный сайт'})
 
