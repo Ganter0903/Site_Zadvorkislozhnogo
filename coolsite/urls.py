@@ -23,7 +23,7 @@ from coolsite import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Zadvorkislozhnogo.urls'))
+    path('', include('Zadvorkislozhnogo.urls', namespace="Zadvorkislozhnogo"))
 ]
 
 if settings.DEBUG:

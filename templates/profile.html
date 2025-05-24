@@ -8,10 +8,10 @@
       <!-- Левая панель -->
       <div class="col">
         <div class="panel text-center">
-          <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="аватар" class="avatar-img mb-2">
-          <h6 class="mb-3">Иванов Иван Иванович</h6>
+          <img src="{{ avatar }}" alt="аватар" class="avatar-img mb-2">
+          <h6 class="mb-3">{{ first_name }} {{ last_name }} {{ surname }}</h6>
           <div class="d-flex justify-content-center align-items-center mb-3">
-            <span class="me-2">0$</span>
+            <span class="me-2">{{ balance }} р.</span>
             <button class="btn btn-outline-secondary btn-sm">Баланс</button>
           </div>
           <hr>
