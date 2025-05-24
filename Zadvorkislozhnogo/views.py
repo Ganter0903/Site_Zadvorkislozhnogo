@@ -1,7 +1,16 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+import string
+import secrets
 
-from .models import *
+from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .models import User
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -9,10 +18,7 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Войти", 'url_name': 'login'}
 ]
 def index(request):
-    posts = User.objects.all()
-
     return render(request, 'index.html', {'menu': menu, 'title': 'Задворки сложного - официальный сайт'})
-
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
@@ -36,15 +42,44 @@ def blog(request):
     return render(request, 'blog.html', {'menu': menu, 'title': 'Блог'})
 
 def profile(request):
-    return render(request, 'profile.html', {'menu': menu, 'title': 'Профиль'})
-
-def auth(request):
-    return render(request, 'auth.html', {'menu': menu, 'title': 'Авторизация'})
-
-def register(request):
-    return render(request, 'register.html', {'menu': menu, 'title': 'Регистрация'})
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('Zadvorkislozhnogo:auth'))
+    user = request.user
+    context = {
+        "menu": menu,
+        "title": "Профиль",
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "surname": user.surname,
+        "avatar": user.avatar.url if user.avatar else None,
+        "balance": user.balance,
+    }
+    return render(request, 'profile.html', context)
 
 def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if not email:
+            return HttpResponseBadRequest('Введите ваш email.')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return HttpResponseBadRequest('Пользователь с таким email не найден.')
+
+        alphabet = string.ascii_letters + string.digits
+        password =  ''.join(secrets.choice(alphabet) for _ in range(12))
+        user.set_password(password)
+        user.save()
+
+        send_mail(
+            'Восстановление пароля',
+            f'Ваш новый пароль: {password}\n\nЕсли вы не запрашивали восстановление пароля, просто проигнорируйте это письмо.',
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+        )
+
+        return HttpResponse('Письмо с инструкциями отправлено на ваш email.')
     return render(request, 'forgot_password.html', {'menu': menu, 'title': 'Восстановление пароля'})
 
 def verify(request):
@@ -67,3 +102,76 @@ def chart_view(request):
         'title': 'Аналитика',
     }
     return render(request, 'chart.html', context)
+
+def register_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password_confirm = request.POST.get('password_confirm')
+
+        if not email or not password or not password_confirm:
+            return HttpResponseBadRequest('Заполните все поля.')
+
+        if password != password_confirm:
+            return HttpResponseBadRequest('Пароли не совпадают.')
+
+        if User.objects.filter(email=email).exists():
+            return HttpResponseBadRequest('Пользователь с таким email уже зарегистрирован.')
+
+        user = User.objects.create(email=email, is_active=False)
+        user.set_password(password)
+        user.save()
+
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        activation_link = request.build_absolute_uri(reverse('Zadvorkislozhnogo:verify_email', kwargs={'uidb64': uid, 'token': token}))
+
+        send_mail(
+            'Подтвердите регистрацию',
+            f'Нажмите на ссылку для активации аккаунта: {activation_link}',
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+        )
+
+        return HttpResponse('Письмо с подтверждением отправлено на почту.')
+
+    return render(request, 'register.html')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                return HttpResponse('Аккаунт не активирован.')
+        else:
+            return HttpResponseBadRequest('Неверный логин или пароль.')
+
+    return render(request, 'auth.html')
+
+
+def verify_email(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    print(token)
+    print(default_token_generator.check_token(user, token))
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return HttpResponse('Аккаунт успешно активирован.')
+    else:
+        return HttpResponseBadRequest('Ссылка активации недействительна.')
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')

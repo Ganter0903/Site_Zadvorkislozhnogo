@@ -10,6 +10,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
     surname = models.CharField(max_length=150, verbose_name='Отчество', blank=True, null=True)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name='Баланс')
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, verbose_name='Аватар')
     subscriptions = models.ManyToManyField(
         'self',
         through='Subscription',
