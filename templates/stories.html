@@ -9,46 +9,21 @@
   </div>
 
   <div class="tab-content">
-    <!-- Поэзия -->
+    {% for item in items %}
     <div class="tab-pane fade show active" id="poetry">
       <div class="work-card d-flex align-items-center">
-        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="автор" width="50" height="50" class="rounded-circle me-3">
+        <img src="{{ item.author.get_avatar_url }}" alt="" width="50" height="50" class="rounded-circle me-3">
         <div>
           <div class="work-title">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
+            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">{{ item.title }}</a>
           </div>
           <div class="work-meta">
-            <small>Анатолий Евграфов</small>
+            <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
-          <div class="work-meta-1">356 просмотров &nbsp;·&nbsp; 23.12.2024</div>
-        </div>
-      </div>
-
-      <div class="work-card d-flex align-items-center">
-        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="автор" width="50" height="50" class="rounded-circle me-3">
-        <div>
-          <div class="work-title">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Рассказ о природе</a>
-          </div>
-          <div class="work-meta">
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="work-meta-1">356 просмотров &nbsp;·&nbsp; 23.12.2024</div>
-        </div>
-      </div>
-
-      <div class="work-card d-flex align-items-center">
-        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="автор" width="50" height="50" class="rounded-circle me-3">
-        <div>
-          <div class="work-title">
-            <a href="{% url 'main:audiobooks' %}" class="text-body text-decoration-none">Аудиокнига о природе</a>
-          </div>
-          <div class="work-meta">
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="work-meta-1">356 просмотров &nbsp;·&nbsp; 23.12.2024</div>
+          <div class="work-meta-1">{{ item.views_count }} просмотров &nbsp;·&nbsp; {{ item.created_at|date:'d.m.Y' }}</div>
         </div>
       </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}

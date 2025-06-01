@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from .models import User
+from .models import User, Poem
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -41,8 +41,13 @@ def authors(request):
     }
     return render(request, 'authors.html', context_data)
 
-def poetry(request):
-    return render(request, 'poetry.html', {'menu': menu, 'title': 'Стихи'})
+def poems(request):
+    context_data = {
+        'menu': menu, 
+        'title': 'Стихи',
+        'items': Poem.objects.all()
+    }
+    return render(request, 'stories.html', context_data)
 
 def stories(request):
     return render(request, 'stories.html', {'menu': menu, 'title': 'Рассказы'})
@@ -166,7 +171,6 @@ def register_view(request):
 
     return render(request, 'register.html')
 
-
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -183,7 +187,6 @@ def login_view(request):
             return HttpResponseBadRequest('Неверный логин или пароль.')
 
     return render(request, 'auth.html')
-
 
 def verify_email(request, uidb64, token):
     try:

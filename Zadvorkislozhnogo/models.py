@@ -65,15 +65,25 @@ class BaseContent(models.Model):
 
 
 class Story(BaseContent):
-    pass
+    
+    class Meta:
+        verbose_name = "Рассказ"
+        verbose_name_plural = "Рассказы"
 
 
 class Poem(BaseContent):
-    pass
+    
+    class Meta:
+        verbose_name = "Стих"
+        verbose_name_plural = "Стихи"
 
 
 class Audiobook(BaseContent):
     audio_file = models.FileField(upload_to='audiobooks/', verbose_name='Аудиофайл')
+    
+    class Meta:
+        verbose_name = "Аудиокнига"
+        verbose_name_plural = "Аудиокниги"
 
 
 class Comment(models.Model):
