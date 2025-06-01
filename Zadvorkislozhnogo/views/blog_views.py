@@ -15,4 +15,4 @@ from django.utils.encoding import force_bytes, force_str
 from Zadvorkislozhnogo.models import User, Poem
 
 def blog(request):
-    return render(request, 'blog.html', {'title': 'Блог'})
+    return render(request, 'blogs/blog.html', {'title': 'Блог'})

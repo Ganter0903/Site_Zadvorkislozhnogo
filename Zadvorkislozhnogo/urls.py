@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (
     index, authors, author_profile,
     stories, audiobooks, blog, 
-    PoemListView, PoemDetailView,
+    PoemListView, PoemDetailView, PoemCreateView,
     profile, login_view, register_view, verify_email,
     forgot_password, chart_view, article, logout_view 
 )
@@ -21,6 +21,7 @@ urlpatterns = [
 
     path('poems/', PoemListView.as_view(), name='poems'),
     path('poems/<int:pk>/', PoemDetailView.as_view(), name='poem_detail'),
+    path('poems/create/', PoemCreateView.as_view(), name='poem_create'),
     
     path('profile/', profile, name='profile'),
     path('auth/', login_view, name='auth'),
