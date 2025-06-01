@@ -1,0 +1,22 @@
+import string
+import secrets
+
+from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.db.models import Count
+from django.utils.timezone import now
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from Zadvorkislozhnogo.models import User, Poem
+
+def poems(request):
+    context_data = {
+        'title': 'Стихи',
+        'items': Poem.objects.all()
+    }
+    return render(request, 'stories.html', context_data)
