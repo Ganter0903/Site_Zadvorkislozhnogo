@@ -5,6 +5,8 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.db.models import Count
+from django.utils.timezone import now
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -17,8 +19,16 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         {'title': "Войти", 'url_name': 'login'}
 ]
+
 def index(request):
-    return render(request, 'index.html', {'menu': menu, 'title': 'Задворки сложного - официальный сайт'})
+    context_data = {
+        "menu": menu,
+        "title": 'Задворки сложного - официальный сайт',
+        "popular_authors": User.objects.annotate(
+            followers_count=Count('followers')
+        ).order_by('-followers_count')[:4],
+    }
+    return render(request, 'index.html', context_data)
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
@@ -50,8 +60,8 @@ def profile(request):
         "title": "Профиль",
         "first_name": user.first_name,
         "last_name": user.last_name,
-        "surname": user.surname,
-        "avatar": user.avatar.url if user.avatar else None,
+        "surname": user.surname or "",
+        "avatar": user.get_avatar_url,
         "balance": user.balance,
     }
     return render(request, 'profile.html', context)
@@ -82,11 +92,25 @@ def forgot_password(request):
         return HttpResponse('Письмо с инструкциями отправлено на ваш email.')
     return render(request, 'forgot_password.html', {'menu': menu, 'title': 'Восстановление пароля'})
 
-def verify(request):
-    return render(request, 'verify.html', {'menu': menu, 'title': 'Верификация'})
-
-def author_profile(request):
-    return render(request, 'author_profile.html', {'menu': menu, 'title': 'Профиль автора'})
+def author_profile(request, pk):
+    try:
+        author = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return HttpResponseNotFound('<h1>Автор не найден</h1>')
+    if author == request.user:
+        return HttpResponseRedirect(reverse('Zadvorkislozhnogo:profile'))
+    context_data = {
+        "menu": menu,
+        "title": "Профиль автора",
+        "first_name": author.first_name,
+        "last_name": author.last_name,
+        "surname": author.surname or "",
+        "avatar": author.get_avatar_url,
+        "subsribers_count": author.subscribers.count(),
+        "articles_count": author.audiobook_set.count() + author.story_set.count() + author.poem_set.count(),
+        "account_age": (now() - author.date_joined).days, 
+    }
+    return render(request, 'author_profile.html', context_data)
 
 # views.py
 def chart_view(request):

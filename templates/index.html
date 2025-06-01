@@ -6,22 +6,16 @@
   <div class="rounded-panel text-center">
     <h5 class="mb-4">Популярные авторы</h5>
     <div class="d-flex justify-content-around flex-wrap">
+      {% for author in popular_authors %}
       <div>
-        <img src="https://randomuser.me/api/portraits/men/10.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
+        <img src="{{ author.get_avatar_url }}" class="avatar-small" alt="">
+        <div class="author-name">
+          <a href="{% url 'main:author_profile' author.pk %}">
+            {{ author.first_name }} {{ author.last_name }}
+          </a>
+        </div>
       </div>
-      <div>
-        <img src="https://randomuser.me/api/portraits/men/20.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
-      </div>
-      <div>
-        <img src="https://randomuser.me/api/portraits/men/30.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
-      </div>
-      <div>
-        <img src="https://randomuser.me/api/portraits/men/40.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 

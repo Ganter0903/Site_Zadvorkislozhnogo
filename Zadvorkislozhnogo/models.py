@@ -25,6 +25,13 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
     
+    @property
+    def get_avatar_url(self):
+        if self.avatar and hasattr(self.avatar, 'url'):
+            return self.avatar.url
+        else:
+            return "/static/Zadvorkislozhnogo/images/user.png"
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'

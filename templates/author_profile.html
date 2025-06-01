@@ -7,8 +7,8 @@
 
     <!-- Header -->
     <div class="text-center mb-4">
-      <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Аватар" class="avatar-lg mb-3">
-      <h4>Иванов Иван Иванович</h4>
+      <img src="{{ avatar }}" alt="Аватар" class="avatar-lg mb-3">
+      <h4>{{ last_name }} {{ first_name }} {{ surname }}</h4>
       <div class="text-muted mb-3">был(а) в сети 1 час назад</div>
       <div class="d-flex justify-content-center gap-2 mb-3">
         <button class="btn btn-outline-dark btn-sm">Подписаться</button>
@@ -16,15 +16,15 @@
       </div>
       <div class="d-flex justify-content-center gap-4">
         <div>
-          <div class="stat">134</div>
+          <div class="stat">{{ articles_count }}</div>
           <div class="stat-label">произведения</div>
         </div>
         <div>
-          <div class="stat">345</div>
+          <div class="stat">{{ subsribers_count }}</div>
           <div class="stat-label">подписчиков</div>
         </div>
         <div>
-          <div class="stat">3 года</div>
+          <div class="stat">{{ account_age }} дней</div>
           <div class="stat-label">на сайте</div>
         </div>
       </div>
