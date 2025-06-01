@@ -1,11 +1,11 @@
 from django.urls import path
 
 from .views import (
-    index, authors, author_profile,
-    stories, audiobooks, blog, 
+    index, authors, author_profile, audiobooks, blog,
+    StoryListView, StoryDetailView, StoryCreateView, 
     PoemListView, PoemDetailView, PoemCreateView,
     profile, login_view, register_view, verify_email,
-    forgot_password, chart_view, article, logout_view 
+    forgot_password, chart_view, logout_view 
 )
 
 app_name = 'main'
@@ -15,9 +15,12 @@ urlpatterns = [
     path('authors/', authors, name='authors'),
     path('author_profile/<int:pk>/', author_profile, name='author_profile'),
     
-    path('stories/', stories, name='stories'),
     path('audiobooks/', audiobooks, name='audiobooks'),
     path('blog/', blog, name='blog'),
+
+    path('stories/', StoryListView.as_view(), name='stories'),
+    path('stories/<int:pk>/', StoryDetailView.as_view(), name='story_detail'),
+    path('stories/create/', StoryCreateView.as_view(), name='story_create'),
 
     path('poems/', PoemListView.as_view(), name='poems'),
     path('poems/<int:pk>/', PoemDetailView.as_view(), name='poem_detail'),
@@ -30,6 +33,5 @@ urlpatterns = [
     path('forgot_password/', forgot_password, name='forgot_password'),
     
     path('chart/', chart_view, name='chart'),
-    path('article/', article, name='article'),
     path('logout/', logout_view, name='logout'),
 ]

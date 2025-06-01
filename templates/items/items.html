@@ -17,6 +17,8 @@
           <div class="work-title">
             {% if content_type_poem %}
               <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif content_type_story %}
+              <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
             {% else %}
               <a href="{% url 'main:article' %}" class="text-body text-decoration-none">{{ item.title }}</a>
             {% endif %}

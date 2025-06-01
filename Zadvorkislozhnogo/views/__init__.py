@@ -14,8 +14,11 @@ __all__ = [
 
     "index",
     "pageNotFound",
-    "stories",
-    "article",
+    
+    "StoryListView",
+    "StoryDetailView",
+    "StoryCreateView",
+
     "audiobooks",
     "blog",
     "chart_view"
@@ -37,8 +40,9 @@ from .misc_views import (
     pageNotFound,
 )
 from .stories_views import (
-    stories,
-    article
+    StoryListView,
+    StoryDetailView,
+    StoryCreateView,
 )
 from .audiobooks_views import (
     audiobooks
