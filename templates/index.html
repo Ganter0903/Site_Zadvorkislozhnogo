@@ -10,7 +10,7 @@
       <div>
         <img src="{{ author.get_avatar_url }}" class="avatar-small" alt="">
         <div class="author-name">
-          <a href="{% url 'main:author_profile' author.pk %}">
+          <a href="{% url 'main:author_profile' author.pk %}" class="text-decoration-none text-dark text-center flex-grow-1">
             {{ author.first_name }} {{ author.last_name }}
           </a>
         </div>

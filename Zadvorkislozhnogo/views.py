@@ -33,8 +33,13 @@ def index(request):
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
-def Authors(request):
-    return render(request, 'authors.html', {'menu': menu, 'title': 'Авторы'})
+def authors(request):
+    context_data = {
+        'menu': menu, 
+        'title': 'Авторы',
+        'authors': User.objects.filter(is_active=True)
+    }
+    return render(request, 'authors.html', context_data)
 
 def poetry(request):
     return render(request, 'poetry.html', {'menu': menu, 'title': 'Стихи'})
