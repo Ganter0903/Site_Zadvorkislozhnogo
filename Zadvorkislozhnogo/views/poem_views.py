@@ -28,6 +28,12 @@ class PoemDetailView(DetailView):
     template_name = 'items/item.html'
     context_object_name = 'item'
 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.views_count += 1
+        obj.save(update_fields=['views_count'])
+        return obj
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихотворение'
