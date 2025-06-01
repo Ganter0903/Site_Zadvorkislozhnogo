@@ -7,7 +7,10 @@ __all__ = [
     "profile",
     "author_profile",
     "authors",
-    "poems",
+
+    "PoemListView",
+    "PoemDetailView",
+
     "index",
     "pageNotFound",
     "stories",
@@ -27,7 +30,7 @@ from .users_views import (
     author_profile,
     authors,
 )
-from .poem_views import (poems, )
+from .poem_views import (PoemListView, PoemDetailView)
 from .misc_views import (
     index,
     pageNotFound,

@@ -5,16 +5,14 @@
 {% block content %}
 <div class="container">
     <div class="work-container">
-      <div class="work-title">Произведение</div>
+      <div class="work-title">{{ item.title }}</div>
       <div class="work-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mollis aliquam ligula in viverra.
-        Proin nulla nunc, porttitor a libero ac, rutrum blandit purus. Pellentesque et vestibulum elit.
-        Vestibulum iaculis ante id ex suscipit posuere. Maecenas ac tortor dolor...
+        {{ item.text }}
       </div>
 
       <div class="author-block">
-        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="author-avatar" alt="avatar">
-        <div>Иванов Иван Иванович</div>
+        <img src="{{ item.author.get_avatar_url }}" class="author-avatar" alt="">
+        <div>{{ item.author.last_name }} {{ item.author.first_name }} {{ item.author.surname|default:'' }}</div>
       </div>
 
       {% include "includes/inc_interactions.html" %}

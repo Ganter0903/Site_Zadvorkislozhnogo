@@ -45,7 +45,7 @@ def register_view(request):
 
         return HttpResponse('Письмо с подтверждением отправлено на почту.')
 
-    return render(request, 'register.html')
+    return render(request, 'users/register.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -62,7 +62,7 @@ def login_view(request):
         else:
             return HttpResponseBadRequest('Неверный логин или пароль.')
 
-    return render(request, 'auth.html')
+    return render(request, 'users/auth.html')
 
 def verify_email(request, uidb64, token):
     try:
@@ -96,7 +96,7 @@ def profile(request):
         "avatar": user.get_avatar_url,
         "balance": user.balance,
     }
-    return render(request, 'profile.html', context)
+    return render(request, 'users/profile.html', context)
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -122,7 +122,7 @@ def forgot_password(request):
         )
 
         return HttpResponse('Письмо с инструкциями отправлено на ваш email.')
-    return render(request, 'forgot_password.html', {'title': 'Восстановление пароля'})
+    return render(request, 'users/forgot_password.html', {'title': 'Восстановление пароля'})
 
 def author_profile(request, pk):
     try:
@@ -141,11 +141,11 @@ def author_profile(request, pk):
         "articles_count": author.audiobook_set.count() + author.story_set.count() + author.poem_set.count(),
         "account_age": (now() - author.date_joined).days, 
     }
-    return render(request, 'author_profile.html', context_data)
+    return render(request, 'users/author_profile.html', context_data)
 
 def authors(request):
     context_data = {
         'title': 'Авторы',
         'authors': User.objects.filter(is_active=True)
     }
-    return render(request, 'authors.html', context_data)
+    return render(request, 'users/authors.html', context_data)

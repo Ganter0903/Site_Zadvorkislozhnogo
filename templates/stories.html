@@ -15,7 +15,11 @@
         <img src="{{ item.author.get_avatar_url }}" alt="" width="50" height="50" class="rounded-circle me-3">
         <div>
           <div class="work-title">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% if content_type_poem %}
+              <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% else %}
+              <a href="{% url 'main:article' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% endif %}
           </div>
           <div class="work-meta">
             <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
