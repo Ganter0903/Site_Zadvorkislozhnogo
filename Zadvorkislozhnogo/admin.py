@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Poem, Audiobook, Story
+from .models import User, Poem, Audiobook, Story, Like, Comment
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -20,3 +20,11 @@ class StoryAdmin(admin.ModelAdmin):
 @admin.register(Audiobook)
 class AudiobookAdmin(admin.ModelAdmin):
     list_display = ("title", "views_count", "author")
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ("user", "content_type", "object_id", "created_at")
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("user", "content_type", "object_id", "created_at")

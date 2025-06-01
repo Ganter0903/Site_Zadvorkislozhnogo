@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
 class User(AbstractUser):
@@ -59,6 +59,8 @@ class BaseContent(models.Model):
     views_count = models.PositiveIntegerField(verbose_name='Кол-во просмотров', default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    comments = GenericRelation('Comment')
+    likes = GenericRelation('Like')
 
     class Meta:
         abstract = True
