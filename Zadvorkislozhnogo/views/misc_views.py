@@ -19,7 +19,6 @@ def index(request):
         "recent_publications": sorted(combined_content, key=lambda x: x.created_at, reverse=True)[:4],
         "top_publications": sorted(combined_content, key=lambda x: x.views_count, reverse=True)[:4],
     }
-    print(context_data["top_publications"])
     return render(request, 'index.html', context_data)
 
 def pageNotFound(request, exception):

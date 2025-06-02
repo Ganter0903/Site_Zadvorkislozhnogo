@@ -29,7 +29,13 @@
         <div class="work-entry">
           <img src="{{ item.author.get_avatar_url }}" alt="">
           <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% if item.content_type == 'story' %}
+              <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif item.content_type == 'poem' %}
+              <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% else %}
+              <span class="text-muted">Неизвестный тип публикации</span>
+            {% endif %}
             <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
           <div class="views">{{ item.views_count }} просмотров</div>
@@ -46,7 +52,13 @@
         <div class="work-entry">
           <img src="{{ item.author.get_avatar_url }}" alt="">
           <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% if item.content_type == 'story' %}
+              <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif item.content_type == 'poem' %}
+              <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% else %}
+              <span class="text-muted">Неизвестный тип публикации</span>
+            {% endif %}
             <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
           <div class="views">{{ item.views_count }} просмотров</div>
