@@ -6,22 +6,16 @@
   <div class="rounded-panel text-center">
     <h5 class="mb-4">Популярные авторы</h5>
     <div class="d-flex justify-content-around flex-wrap">
+      {% for author in popular_authors %}
       <div>
-        <img src="https://randomuser.me/api/portraits/men/10.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
+        <img src="{{ author.get_avatar_url }}" class="avatar-small" alt="">
+        <div class="author-name">
+          <a href="{% url 'main:author_profile' author.pk %}" class="text-decoration-none text-dark text-center flex-grow-1">
+            {{ author.first_name }} {{ author.last_name }}
+          </a>
+        </div>
       </div>
-      <div>
-        <img src="https://randomuser.me/api/portraits/men/20.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
-      </div>
-      <div>
-        <img src="https://randomuser.me/api/portraits/men/30.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
-      </div>
-      <div>
-        <img src="https://randomuser.me/api/portraits/men/40.jpg" class="avatar-small" alt="автор">
-        <div class="author-name">Анатолий Евграфов</div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 
@@ -31,38 +25,22 @@
     <div class="col-md-6">
       <div class="rounded-panel">
         <div class="section-title">Новое</div>
+        {% for item in recent_publications %}
         <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+          <img src="{{ item.author.get_avatar_url }}" alt="">
           <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
+            {% if item.content_type == 'story' %}
+              <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif item.content_type == 'poem' %}
+              <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% else %}
+              <span class="text-muted">Неизвестный тип публикации</span>
+            {% endif %}
+            <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
-          <div class="views">356 просмотров</div>
+          <div class="views">{{ item.views_count }} просмотров</div>
         </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="views">356 просмотров</div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="views">356 просмотров</div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="views">356 просмотров</div>
-        </div>
+        {% endfor %}
       </div>
     </div>
 
@@ -70,36 +48,25 @@
     <div class="col-md-6">
       <div class="rounded-panel">
         <div class="section-title">Топ недели</div>
+        {% for item in top_publications %}
         <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
+          <img src="{{ item.author.get_avatar_url }}" alt="">
           <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
+            {% if item.content_type == 'story' %}
+              <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif item.content_type == 'poem' %}
+              <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% else %}
+              <span class="text-muted">Неизвестный тип публикации</span>
+            {% endif %}
+            <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
+          <div class="views">{{ item.views_count }} просмотров</div>
         </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:article' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
+  
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="text-center mb-3">
+    <input type="text" class="form-control w-25 mx-auto" placeholder="Поиск">
+  </div>
+
+  <div class="tab-content">
+    {% for item in items %}
+    <div class="tab-pane fade show active" id="poetry">
+      <div class="work-card d-flex align-items-center">
+        <img src="{{ item.author.get_avatar_url }}" alt="" width="50" height="50" class="rounded-circle me-3">
+        <div>
+          <div class="work-title">
+            {% if content_type_poem %}
+              <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif content_type_story %}
+              <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% else %}
+              <a href="{% url 'main:article' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% endif %}
+          </div>
+          <div class="work-meta">
+            <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
+          </div>
+          <div class="work-meta-1">{{ item.views_count }} просмотров &nbsp;·&nbsp; {{ item.created_at|date:'d.m.Y' }}</div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

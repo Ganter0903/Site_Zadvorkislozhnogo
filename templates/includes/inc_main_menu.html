@@ -14,14 +14,19 @@
     <ul class="nav me-auto">
       <li class="nav-item"><a href="{% url 'main:home' %}" class="nav-link link-dark px-2 active" aria-current="page">Домой</a></li>
       <li class="nav-item"><a href="{% url 'main:authors' %}" class="nav-link link-dark px-2">Авторы</a></li>
-      <li class="nav-item"><a href="{% url 'main:stories' %}" class="nav-link link-dark px-2">Стихи</a></li>
+      <li class="nav-item"><a href="{% url 'main:poems' %}" class="nav-link link-dark px-2">Стихи</a></li>
       <li class="nav-item"><a href="{% url 'main:stories' %}" class="nav-link link-dark px-2">Рассказы</a></li>
       <li class="nav-item"><a href="{% url 'main:stories' %}" class="nav-link link-dark px-2">Аудиокниги</a></li>
       <li class="nav-item"><a href="{% url 'main:blog' %}" class="nav-link link-dark px-2">Блог</a></li>
     </ul>
     <ul class="nav">
-      <li class="nav-item"><a href="{% url 'main:auth' %}" class="nav-link link-dark px-2">Войти</a></li>
-      <li class="nav-item"><a href="{% url 'main:register' %}" class="nav-link link-dark px-2">Регистрация</a></li>
+      {% if not user.is_authenticated %}
+        <li class="nav-item"><a href="{% url 'main:auth' %}" class="nav-link link-dark px-2">Войти</a></li>
+        <li class="nav-item"><a href="{% url 'main:register' %}" class="nav-link link-dark px-2">Регистрация</a></li>
+      {% else %}
+        <li class="nav-item"><a href="{% url 'main:profile' %}" class="nav-link link-dark px-2">Профиль</a></li>
+        <li class="nav-item"><a href="{% url 'main:logout' %}" class="nav-link link-dark px-2">Выход</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>

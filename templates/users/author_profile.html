@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <img src="{{ avatar }}" alt="Аватар" class="avatar-lg mb-3">
+      <h4>{{ last_name }} {{ first_name }} {{ surname }}</h4>
+      <div class="text-muted mb-3">был(а) в сети 1 час назад</div>
+      <div class="d-flex justify-content-center gap-2 mb-3">
+        <button class="btn btn-outline-dark btn-sm">Подписаться</button>
+        <button class="btn btn-outline-secondary btn-sm">Написать сообщение</button>
+      </div>
+      <div class="d-flex justify-content-center gap-4">
+        <div>
+          <div class="stat">{{ articles_count }}</div>
+          <div class="stat-label">произведения</div>
+        </div>
+        <div>
+          <div class="stat">{{ subsribers_count }}</div>
+          <div class="stat-label">подписчиков</div>
+        </div>
+        <div>
+          <div class="stat">{{ account_age }} дней</div>
+          <div class="stat-label">на сайте</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-3" id="authorTabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#poetry">Поэзия</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#stories">Рассказы</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#audio">Аудиокниги</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#blog">Блог</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Поэзия -->
+      <div class="tab-pane fade show active" id="poetry">
+        {% for poem in author_poems %}
+        <div class="work-card d-flex align-items-center">
+          <img src="{{ avatar }}" alt="" width="50" height="50" class="rounded-circle me-3">
+          <div>
+            <a href="{% url 'main:poem_detail' poem.pk %}" class="text-decoration-none text-dark">
+              <div class="work-title">{{ poem.title }}</div>
+            </a>
+            <div class="work-meta-1">{{ poem.views_count }} просмотров &nbsp;·&nbsp; {{ poem.created_at|date:'d.m.Y' }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Рассказы -->
+       <div class="tab-pane fade show active" id="stories">
+        {% for story in author_stories %}
+        <div class="work-card d-flex align-items-center">
+          <img src="{{ avatar }}" alt="" width="50" height="50" class="rounded-circle me-3">
+          <div>
+            <a href="{% url 'main:story_detail' story.pk %}" class="text-decoration-none text-dark">
+              <div class="work-title">{{ story.title }}</div>
+            </a>
+            <div class="work-meta-1">{{ story.views_count }} просмотров &nbsp;·&nbsp; {{ story.created_at|date:'d.m.Y' }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Аудиокниги -->
+      <div class="tab-pane fade" id="audio">
+        <p>Раздел в разработке.</p>
+      </div>
+
+      <!-- Блог -->
+      <div class="tab-pane fade" id="blog">
+        <p>Раздел в разработке.</p>
+      </div>
+    </div>
+
+</div>
+{% endblock %}
