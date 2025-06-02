@@ -5,13 +5,16 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.db.models import Value, CharField
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.timezone import now
-from Zadvorkislozhnogo.models import User
+from itertools import chain
+
+from Zadvorkislozhnogo.models import User, Poem, Story, Audiobook
 
 def register_view(request):
     if request.method == 'POST':
@@ -88,6 +91,11 @@ def profile(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('Zadvorkislozhnogo:auth'))
     user = request.user
+    poems = Poem.objects.filter(author=user).annotate(content_type=Value('poem', output_field=CharField()))
+    stories = Story.objects.filter(author=user).annotate(content_type=Value('story', output_field=CharField()))
+    audiobooks = Audiobook.objects.filter(author=user).annotate(content_type=Value('audiobook', output_field=CharField()))
+    combined_content = list(chain(poems, stories, audiobooks))
+    
     context = {
         "title": "Профиль",
         "first_name": user.first_name,
@@ -95,6 +103,7 @@ def profile(request):
         "surname": user.surname or "",
         "avatar": user.get_avatar_url,
         "balance": user.balance,
+        "user_items": sorted(combined_content, key=lambda x: x.created_at, reverse=True)
     }
     return render(request, 'users/profile.html', context)
 
