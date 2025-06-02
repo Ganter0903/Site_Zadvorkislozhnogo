@@ -25,38 +25,16 @@
     <div class="col-md-6">
       <div class="rounded-panel">
         <div class="section-title">Новое</div>
+        {% for item in recent_publications %}
         <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+          <img src="{{ item.author.get_avatar_url }}" alt="">
           <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
+            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
-          <div class="views">356 просмотров</div>
+          <div class="views">{{ item.views_count }} просмотров</div>
         </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="views">356 просмотров</div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="views">356 просмотров</div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-          <div class="views">356 просмотров</div>
-        </div>
+        {% endfor %}
       </div>
     </div>
 
@@ -64,36 +42,19 @@
     <div class="col-md-6">
       <div class="rounded-panel">
         <div class="section-title">Топ недели</div>
+        {% for item in top_publications %}
         <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
+          <img src="{{ item.author.get_avatar_url }}" alt="">
           <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
+            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            <small>{{ item.author.first_name }} {{ item.author.last_name }}</small>
           </div>
+          <div class="views">{{ item.views_count }} просмотров</div>
         </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-        </div>
-        <div class="work-entry">
-          <img src="https://randomuser.me/api/portraits/men/20.jpg" alt="">
-          <div class="work-meta">
-            <a href="{% url 'main:stories' %}" class="text-body text-decoration-none">Стих о природе</a>
-            <small>Анатолий Евграфов</small>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
+  
   </div>
 </div>
 {% endblock %}

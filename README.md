@@ -12,4 +12,4 @@
 - `article/` - детальный просмотр рассказа/стиха
 
 ## Админ панель
-# admin@admin.ru:12345
+# admin@admin.ru:admin
