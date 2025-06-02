@@ -139,7 +139,9 @@ def author_profile(request, pk):
         "avatar": author.get_avatar_url,
         "subsribers_count": author.subscribers.count(),
         "articles_count": author.audiobook_set.count() + author.story_set.count() + author.poem_set.count(),
-        "account_age": (now() - author.date_joined).days, 
+        "account_age": (now() - author.date_joined).days,
+        "author_poems": author.poem_set.all().order_by('-created_at'),
+        "author_stories": author.story_set.all().order_by('-created_at'),
     }
     return render(request, 'users/author_profile.html', context_data)
 
