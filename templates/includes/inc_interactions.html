@@ -1,5 +1,54 @@
 <div class="interactions d-flex justify-content-center gap-4">
-    <a href="/like" class="text-decoration-none like text-dark"><i class="bi bi-heart"></i> {{ item.likes.count }}</a>
-    <a href="/comment" class="text-decoration-none comment text-dark"><i class="bi bi-chat"></i> {{ item.comments.count }}</a>
-    <a href="/bookmark" class="text-decoration-none fav text-dark"><i class="bi bi-bookmark"></i> 0</a>
+
+    <form action="{% url 'main:toggle_like' model_name item.id %}" method="post" class="like-form">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link text-decoration-none text-dark p-0 like">
+            {% if is_user_liked %}
+                <i class="bi bi-heart-fill like-btn" style="color: red"></i>
+            {% else %}
+                <i class="bi bi-heart like-btn"></i>
+            {% endif %}
+            <span class="like-count">{{ item.likes.count }}</span>
+        </button>
+    </form>
+
+    <a href="/comment" class="text-decoration-none comment text-dark">
+        <i class="bi bi-chat"></i> {{ item.comments.count }}
+    </a>
+
+    <a href="/bookmark" class="text-decoration-none fav text-dark">
+        <i class="bi bi-bookmark"></i> 0
+    </a>
 </div>
+
+<!-- <script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.like-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const btn = form.querySelector('.like-btn');
+            const icon = btn.querySelector('i');
+            const countEl = btn.querySelector('.like-count');
+            let count = parseInt(countEl.textContent) || 0;
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.liked) {
+                    icon.className = 'bi bi-heart-fill';
+                    countEl.textContent = count + 1;
+                } else {
+                    icon.className = 'bi bi-heart';
+                    countEl.textContent = count - 1;
+                }
+            });
+        });
+    });
+});
+</script> -->

@@ -31,6 +31,8 @@ class StoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихотворение'
+        context['model_name'] = self.model._meta.model_name
+        context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
         return context
 
 class StoryCreateView(CreateView):

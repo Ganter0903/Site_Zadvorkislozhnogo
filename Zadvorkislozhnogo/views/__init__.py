@@ -14,6 +14,7 @@ __all__ = [
 
     "index",
     "pageNotFound",
+    "toggle_like",
     
     "StoryListView",
     "StoryDetailView",
@@ -38,6 +39,7 @@ from .poem_views import (PoemListView, PoemDetailView, PoemCreateView)
 from .misc_views import (
     index,
     pageNotFound,
+    toggle_like,
 )
 from .stories_views import (
     StoryListView,
