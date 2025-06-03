@@ -17,5 +17,29 @@
 
       {% include "includes/inc_interactions.html" %}
     </div>
+
+    <div class="work-container">
+      <div class="work-title">Комментарии</div>
+      {% for comment in item.comments.all %}
+        <div class="work-entry">
+          <img src="{{ comment.user.get_avatar_url }}" alt="">
+          <div class="work-meta">
+            <p class="work-text">{{ comment.text }}</p>
+            <small class="work-text">{{ comment.user.first_name }} {{ comment.user.last_name }}</small>
+          </div>
+          <div class="views">{{ comment.created_at|date:"Y-m-d H:i" }}</div>
+        </div>
+      {% empty %}
+        <p>Пока нет комментариев. Будьте первым!</p>
+      {% endfor %}
+      <!-- # Сюда добавить маршрут до эндпоинта комментов -->
+      <form method="post" action="#">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="commentText" class="form-label">Добавить комментарий</label>
+          <textarea class="form-control" id="commentText" name="text" rows="3" required></textarea>
+        </div>
+      </form>
+    </div>
 </div>
 {% endblock %}
