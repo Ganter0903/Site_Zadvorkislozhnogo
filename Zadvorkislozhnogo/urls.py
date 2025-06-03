@@ -4,7 +4,7 @@ from .views import (
     index, authors, author_profile, audiobooks, blog,
     StoryListView, StoryDetailView, StoryCreateView, 
     PoemListView, PoemDetailView, PoemCreateView,
-    toggle_like,
+    toggle_like, create_comment,
     profile, login_view, register_view, verify_email,
     forgot_password, chart_view, logout_view 
 )
@@ -36,6 +36,7 @@ urlpatterns = [
     path('chart/', chart_view, name='chart'),
     
     path('<str:model_name>/<int:object_id>/like/', toggle_like, name='toggle_like'),
+    path('<str:model_name>/<int:object_id>/comment/', create_comment, name='create_comment'),
     
     path('logout/', logout_view, name='logout'),
 ]

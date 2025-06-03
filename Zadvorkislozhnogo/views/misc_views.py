@@ -5,7 +5,10 @@ from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from itertools import chain
-from Zadvorkislozhnogo.models import User, Poem, Story, Audiobook, Like
+from Zadvorkislozhnogo.models import (
+    User, Poem, Story, 
+    Audiobook, Like, Comment
+)
 
 def index(request):
     
@@ -47,5 +50,26 @@ def toggle_like(request, model_name, object_id):
 
     if not created:
         like.delete()
+
+    return HttpResponseRedirect(reverse(f"main:{model_name}_detail", kwargs={'pk': obj.id}))
+
+@login_required
+def create_comment(request, model_name, object_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Only POST allowed')
+
+    try:
+        content_type = ContentType.objects.get(model=model_name.lower())
+        model_class = content_type.model_class()
+        obj = get_object_or_404(model_class, id=object_id)
+    except ContentType.DoesNotExist:
+        raise Http404("Model not found")
+
+    Comment.objects.create(
+        user=request.user,
+        content_type=content_type,
+        object_id=obj.id,
+        text=request.POST.get("text", "")
+    )
 
     return HttpResponseRedirect(reverse(f"main:{model_name}_detail", kwargs={'pk': obj.id}))
