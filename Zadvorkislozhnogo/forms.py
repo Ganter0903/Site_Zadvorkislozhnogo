@@ -1,5 +1,5 @@
 from django import forms
-from .models import Story, Poem, Audiobook
+from .models import Story, Poem, Audiobook, User
 
 class BaseContentForm(forms.ModelForm):
     class Meta:
@@ -24,4 +24,15 @@ class AudiobookForm(BaseContentForm):
         widgets = {
             **BaseContentForm.Meta.widgets,
             'audio_file': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'surname', 'avatar']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'surname': forms.TextInput(attrs={'class': 'form-control'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-control'}),
         }

@@ -1,20 +1,24 @@
 import string
 import secrets
 
+from django.contrib.auth.decorators import login_required
+from django.views.generic import UpdateView
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.db.models import Value, CharField
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseNotFound
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse, reverse_lazy
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.timezone import now
 from itertools import chain
 
-from Zadvorkislozhnogo.models import User, Poem, Story, Audiobook
+from Zadvorkislozhnogo.models import User, Poem, Story, Audiobook, Subscription
+from Zadvorkislozhnogo.forms import UserEditForm
 
 def register_view(request):
     if request.method == 'POST':
@@ -142,9 +146,7 @@ def author_profile(request, pk):
         return HttpResponseRedirect(reverse('Zadvorkislozhnogo:profile'))
     context_data = {
         "title": "Профиль автора",
-        "first_name": author.first_name,
-        "last_name": author.last_name,
-        "surname": author.surname or "",
+        "author": author,
         "avatar": author.get_avatar_url,
         "subsribers_count": author.subscribers.count(),
         "articles_count": author.audiobook_set.count() + author.story_set.count() + author.poem_set.count(),
@@ -158,5 +160,39 @@ def authors(request):
     context_data = {
         'title': 'Авторы',
         'authors': User.objects.filter(is_active=True)
+    }
+    return render(request, 'users/authors.html', context_data)
+
+class EditProfile(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserEditForm
+    template_name = 'users/user_edit.html'
+    success_url = reverse_lazy('main:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+@login_required
+def toggle_subscription(request, user_id):
+    target_user = get_object_or_404(User, id=user_id)
+
+    if target_user == request.user:
+        return redirect('main:author_profile', pk=user_id)  # нельзя подписаться на себя
+
+    subscription, created = Subscription.objects.get_or_create(
+        from_user=request.user,
+        to_user=target_user
+    )
+
+    if not created:
+        subscription.delete()  # отписка
+
+    return redirect('main:author_profile', pk=user_id)
+
+@login_required
+def my_subscriptions(request):
+    context_data = {
+        'title': 'Мои подписки',
+        'authors': request.user.subscriptions.all()
     }
     return render(request, 'users/authors.html', context_data)

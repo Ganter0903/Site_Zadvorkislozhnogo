@@ -7,6 +7,9 @@ __all__ = [
     "profile",
     "author_profile",
     "authors",
+    "EditProfile",
+    "toggle_subscription",
+    "my_subscriptions",
 
     "PoemListView",
     "PoemDetailView",
@@ -35,6 +38,9 @@ from .users_views import (
     profile,
     author_profile,
     authors,
+    EditProfile,
+    toggle_subscription,
+    my_subscriptions,
 )
 from .poem_views import (PoemListView, PoemDetailView, PoemCreateView)
 from .misc_views import (

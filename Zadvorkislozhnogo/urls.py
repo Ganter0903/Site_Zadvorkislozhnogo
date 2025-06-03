@@ -5,7 +5,7 @@ from .views import (
     StoryListView, StoryDetailView, StoryCreateView, 
     PoemListView, PoemDetailView, PoemCreateView,
     toggle_like, create_comment,
-    profile, login_view, register_view, verify_email,
+    profile, login_view, register_view, verify_email, EditProfile, toggle_subscription, my_subscriptions,
     forgot_password, chart_view, logout_view 
 )
 
@@ -32,6 +32,9 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path('verify/<uidb64>/<token>/', verify_email, name='verify_email'),
     path('forgot_password/', forgot_password, name='forgot_password'),
+    path('profile/edit/', EditProfile.as_view(), name='edit_profile'),
+    path('subscribe/<int:user_id>/', toggle_subscription, name='toggle_subscription'),
+    path('subscriptions/', my_subscriptions, name="my_subscriptions"),
     
     path('chart/', chart_view, name='chart'),
     
