@@ -134,6 +134,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'Zadvorkislozhnogo.User'
+LOGIN_URL = 'main:auth'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465

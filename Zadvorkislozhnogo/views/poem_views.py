@@ -32,7 +32,10 @@ class PoemDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихотворение'
         context['model_name'] = self.model._meta.model_name
-        context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
+        if self.request.user.is_authenticated:
+            context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
+        else:
+            context['is_user_liked'] = False
         return context
 
 class PoemCreateView(CreateView):
