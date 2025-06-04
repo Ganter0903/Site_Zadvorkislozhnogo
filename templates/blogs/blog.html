@@ -5,6 +5,12 @@
 {% block content %}
 <div class="container">
   
+  {% if user.is_authenticated %}
+    <div class="d-flex justify-content-between">
+      <a href="{% url 'main:blog_create' %}" class="btn btn-primary">Новая запись</a>
+    </div>
+  {% endif %}
+
   {% for item in items %}
     <div class="work-container">
       <a href="{% url 'main:blog_detail' item.pk %}" class="work-title text-body text-decoration-none">{{ item.title }}</a>
@@ -17,7 +23,28 @@
         <div>{{ item.author.first_name }} {{ item.author.last_name }}</div>
       </div>
 
-      {% include "includes/inc_interactions.html" %}
+      <div class="interactions d-flex justify-content-center gap-4">
+
+          <form action="{% url 'main:toggle_like' item.model_name item.id %}" method="post" class="like-form">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link text-decoration-none text-dark p-0 like">
+                  {% if is_user_liked %}
+                      <i class="bi bi-heart-fill like-btn" style="color: red"></i>
+                  {% else %}
+                      <i class="bi bi-heart like-btn"></i>
+                  {% endif %}
+                  <span class="like-count">{{ item.likes.count }}</span>
+              </button>
+          </form>
+
+          <a href="{% url 'main:blog_detail' item.pk %}" class="text-decoration-none comment text-dark">
+              <i class="bi bi-chat"></i> {{ item.comments.count }}
+          </a>
+
+          <a href="#" class="text-decoration-none fav text-dark">
+              <i class="bi bi-bookmark"></i> 0
+          </a>
+      </div>
     </div>
   {% endfor %}
 
