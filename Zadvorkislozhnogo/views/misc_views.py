@@ -1,6 +1,8 @@
+import re
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count, Value, CharField
+from django.db.models import Count, Value, CharField, Q
 from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponseBadRequest, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -73,3 +75,41 @@ def create_comment(request, model_name, object_id):
     )
 
     return HttpResponseRedirect(reverse(f"main:{model_name}_detail", kwargs={'pk': obj.id}))
+
+def search_view(request):
+    query = request.GET.get('q', '').strip()
+    if not query:
+        return render(request, 'items/items.html', {
+                'title': "Строка поиска пуста", 
+                'items': []
+            })
+
+    try:
+        pattern = re.compile(query, re.IGNORECASE)
+    except re.error:
+        return render(request, 'search/items.html', {
+            'title': "Ошибка в строке поиска",
+            'items': []
+        })
+
+    def filter_queryset(model):
+        return [
+            obj 
+            for obj 
+            in model.objects.all().annotate(content_type=Value(
+                model._meta.model_name, output_field=CharField()
+            )) if pattern.search(obj.title)
+        ]
+
+    results = (
+        [x for x in filter_queryset(Story)] +
+        [x for x in filter_queryset(Poem)] +
+        [x for x in filter_queryset(Audiobook)]
+    )
+
+    print(results)  # Debugging output
+    
+    return render(request, 'items/items.html', {
+        'title': "Результаты поиска" if results else "Ничего не найдено",
+        'items': results
+    })

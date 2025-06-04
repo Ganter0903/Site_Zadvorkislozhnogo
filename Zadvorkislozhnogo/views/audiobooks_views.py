@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse
+from django.db.models import Value, CharField
 from Zadvorkislozhnogo.models import Audiobook
 from Zadvorkislozhnogo.forms import AudiobookForm
 
@@ -9,12 +10,11 @@ class AudiobookListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        return Audiobook.objects.all().order_by('-created_at')
+        return Audiobook.objects.all().order_by('-created_at').annotate(content_type=Value('audiobook', output_field=CharField()))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Аудиокниги'
-        context['content_type_audiobook'] = True
         return context
 
 class AudiobookDetailView(DetailView):

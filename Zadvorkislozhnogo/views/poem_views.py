@@ -1,3 +1,4 @@
+from django.db.models import Value, CharField
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse
 from Zadvorkislozhnogo.models import Poem
@@ -9,12 +10,11 @@ class PoemListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        return Poem.objects.all().order_by('-created_at')
+        return Poem.objects.all().order_by('-created_at').annotate(content_type=Value("poem", output_field=CharField()))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихи'
-        context['content_type_poem'] = True
         return context
 
 class PoemDetailView(DetailView):

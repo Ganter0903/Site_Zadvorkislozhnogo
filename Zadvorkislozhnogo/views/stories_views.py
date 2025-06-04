@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse
+from django.db.models import Value, CharField
 from Zadvorkislozhnogo.models import Story
 from Zadvorkislozhnogo.forms import StoryForm
 
@@ -9,12 +10,11 @@ class StoryListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        return Story.objects.all().order_by('-created_at')
+        return Story.objects.all().order_by('-created_at').annotate(content_type=Value('story', output_field=CharField()))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Стихи'
-        context['content_type_story'] = True
+        context['title'] = 'Рассказы'
         return context
 
 class StoryDetailView(DetailView):

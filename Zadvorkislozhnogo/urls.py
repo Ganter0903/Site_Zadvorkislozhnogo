@@ -7,15 +7,15 @@ from .views import (
     PoemListView, PoemDetailView, PoemCreateView,
     toggle_like, create_comment,
     profile, login_view, register_view, verify_email, EditProfile, toggle_subscription, my_subscriptions,
-    forgot_password, chart_view, logout_view 
+    forgot_password, chart_view, logout_view, search_view
 )
 
 app_name = 'main'
 
 urlpatterns = [
     path('', index, name='home'),
-    path('authors/', authors, name='authors'),
-    path('author_profile/<int:pk>/', author_profile, name='author_profile'),
+    
+    path('search/', search_view, name='search'),
     
     path('blog/', blog, name='blog'),
 
@@ -36,7 +36,12 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path('verify/<uidb64>/<token>/', verify_email, name='verify_email'),
     path('forgot_password/', forgot_password, name='forgot_password'),
+    path('logout/', logout_view, name='logout'),
     path('profile/edit/', EditProfile.as_view(), name='edit_profile'),
+    
+    path('authors/', authors, name='authors'),
+    path('author_profile/<int:pk>/', author_profile, name='author_profile'),
+    
     path('subscribe/<int:user_id>/', toggle_subscription, name='toggle_subscription'),
     path('subscriptions/', my_subscriptions, name="my_subscriptions"),
     
@@ -44,6 +49,4 @@ urlpatterns = [
     
     path('<str:model_name>/<int:object_id>/like/', toggle_like, name='toggle_like'),
     path('<str:model_name>/<int:object_id>/comment/', create_comment, name='create_comment'),
-    
-    path('logout/', logout_view, name='logout'),
 ]

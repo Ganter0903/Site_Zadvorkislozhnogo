@@ -19,6 +19,7 @@ __all__ = [
     "pageNotFound",
     "toggle_like",
     "create_comment",
+    "search_view",
     
     "StoryListView",
     "StoryDetailView",
@@ -50,7 +51,8 @@ from .misc_views import (
     index,
     pageNotFound,
     toggle_like,
-    create_comment
+    create_comment,
+    search_view,
 )
 from .stories_views import (
     StoryListView,
