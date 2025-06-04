@@ -18,7 +18,7 @@
           <p class="mb-3">Мои произведения</p>
           <a class="btn btn-outline-primary" href="{% url 'main:poem_create' %}">Новое стихотворение</a>
           <a class="btn btn-outline-primary" href="{% url 'main:story_create' %}">Новый рассказ</a>
-          <a class="btn btn-outline-primary" href="{% url 'main:poem_create' %}">Новая аудиокнига</a>
+          <a class="btn btn-outline-primary" href="{% url 'main:audiobook_create' %}">Новая аудиокнига</a>
           <div class="mt-4">
             {% for item in user_items %}
             <div class="work-entry d-flex align-items-center">
@@ -28,6 +28,8 @@
                   <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
                 {% elif item.content_type == 'poem' %}
                   <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+                {% elif item.content_type == 'audiobook' %}
+                  <a href="{% url 'main:audiobook_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
                 {% else %}
                   <span class="text-muted">Неизвестный тип публикации</span>
                 {% endif %}

@@ -33,6 +33,8 @@
               <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
             {% elif item.content_type == 'poem' %}
               <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+            {% elif item.content_type == 'audiobook' %}
+              <a href="{% url 'main:audiobook_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
             {% else %}
               <span class="text-muted">Неизвестный тип публикации</span>
             {% endif %}

@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (
-    index, authors, author_profile, audiobooks, blog,
+    index, authors, author_profile, blog,
+    AudiobookListView, AudiobookDetailView, AudiobookCreateView,
     StoryListView, StoryDetailView, StoryCreateView, 
     PoemListView, PoemDetailView, PoemCreateView,
     toggle_like, create_comment,
@@ -16,7 +17,6 @@ urlpatterns = [
     path('authors/', authors, name='authors'),
     path('author_profile/<int:pk>/', author_profile, name='author_profile'),
     
-    path('audiobooks/', audiobooks, name='audiobooks'),
     path('blog/', blog, name='blog'),
 
     path('stories/', StoryListView.as_view(), name='stories'),
@@ -26,6 +26,10 @@ urlpatterns = [
     path('poems/', PoemListView.as_view(), name='poems'),
     path('poems/<int:pk>/', PoemDetailView.as_view(), name='poem_detail'),
     path('poems/create/', PoemCreateView.as_view(), name='poem_create'),
+    
+    path('audiobooks/', AudiobookListView.as_view(), name='audiobooks'),
+    path('audiobooks/<int:pk>/', AudiobookDetailView.as_view(), name='audiobook_detail'),
+    path('audiobooks/create/', AudiobookCreateView.as_view(), name='audiobook_create'),
     
     path('profile/', profile, name='profile'),
     path('auth/', login_view, name='auth'),
