@@ -1,5 +1,5 @@
 from django import forms
-from .models import Story, Poem, Audiobook, User
+from .models import Story, Poem, Audiobook, User, Blog
 
 class BaseContentForm(forms.ModelForm):
     class Meta:
@@ -35,4 +35,13 @@ class UserEditForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'surname': forms.TextInput(attrs={'class': 'form-control'}),
             'avatar': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ['title', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.TextInput(attrs={'class': 'form-control'}),
         }

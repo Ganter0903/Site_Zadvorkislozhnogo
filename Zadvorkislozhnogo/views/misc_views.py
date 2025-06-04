@@ -2,7 +2,7 @@ import re
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count, Value, CharField, Q
+from django.db.models import Count, Value, CharField
 from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponseBadRequest, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse

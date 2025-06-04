@@ -10,7 +10,10 @@ class StoryListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        return Story.objects.all().order_by('-created_at').annotate(content_type=Value('story', output_field=CharField()))
+        return Story.objects.all().order_by('-created_at').annotate(
+            content_type=Value('story', output_field=CharField()),
+            model_name=Value('story', output_field=CharField())
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,7 +34,7 @@ class StoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихотворение'
-        context['model_name'] = self.model._meta.model_name
+        context['item'].model_name = self.model._meta.model_name
         if self.request.user.is_authenticated:
             context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
         else:

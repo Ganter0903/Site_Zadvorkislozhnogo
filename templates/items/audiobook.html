@@ -41,7 +41,7 @@
       {% endfor %}
 
       <div>
-        <form method="post" action="{% url 'main:create_comment' model_name item.id %}">
+        <form method="post" action="{% url 'main:create_comment' item.model_name item.id %}">
           {% csrf_token %}
           <div class="mb-3">
             <textarea class="form-control" id="commentText" name="text" rows="3" required></textarea>

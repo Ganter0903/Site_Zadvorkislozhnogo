@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (
-    index, authors, author_profile, blog,
+    index, authors, author_profile,
+    BlogListView, BlogDetailView, BlogCreateView,
     AudiobookListView, AudiobookDetailView, AudiobookCreateView,
     StoryListView, StoryDetailView, StoryCreateView, 
     PoemListView, PoemDetailView, PoemCreateView,
@@ -17,7 +18,9 @@ urlpatterns = [
     
     path('search/', search_view, name='search'),
     
-    path('blog/', blog, name='blog'),
+    path('blogs/', BlogListView.as_view(), name='blogs'),
+    path('blogs/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('blogs/create/', BlogCreateView.as_view(), name='blog_create'),
 
     path('stories/', StoryListView.as_view(), name='stories'),
     path('stories/<int:pk>/', StoryDetailView.as_view(), name='story_detail'),

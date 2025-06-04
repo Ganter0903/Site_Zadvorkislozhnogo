@@ -1,6 +1,6 @@
 <div class="interactions d-flex justify-content-center gap-4">
 
-    <form action="{% url 'main:toggle_like' model_name item.id %}" method="post" class="like-form">
+    <form action="{% url 'main:toggle_like' item.model_name item.id %}" method="post" class="like-form">
         {% csrf_token %}
         <button type="submit" class="btn btn-link text-decoration-none text-dark p-0 like">
             {% if is_user_liked %}

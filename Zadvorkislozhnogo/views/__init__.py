@@ -29,7 +29,10 @@ __all__ = [
     "AudiobookDetailView",
     "AudiobookCreateView",
     
-    "blog",
+    "BlogListView",
+    "BlogDetailView",
+    "BlogCreateView",
+    
     "chart_view"
 ]
 
@@ -65,7 +68,9 @@ from .audiobooks_views import (
     AudiobookCreateView,
 )
 from .blog_views import (
-    blog,
+    BlogListView,
+    BlogDetailView,
+    BlogCreateView,
 )
 from .chart_views import (
     chart_view,

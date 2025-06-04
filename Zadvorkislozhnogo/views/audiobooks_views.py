@@ -10,7 +10,10 @@ class AudiobookListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        return Audiobook.objects.all().order_by('-created_at').annotate(content_type=Value('audiobook', output_field=CharField()))
+        return Audiobook.objects.all().order_by('-created_at').annotate(
+            content_type=Value('audiobook', output_field=CharField()),
+            model_name=Value('audiobook', output_field=CharField())
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,7 +34,7 @@ class AudiobookDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Аудиокнига: ' + self.object.title
-        context['model_name'] = self.model._meta.model_name
+        context['item'].model_name = self.model._meta.model_name
         if self.request.user.is_authenticated:
             context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
         else:
