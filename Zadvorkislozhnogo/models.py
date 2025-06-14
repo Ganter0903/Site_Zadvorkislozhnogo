@@ -51,6 +51,8 @@ class Blog(models.Model):
     content = models.TextField(verbose_name='Содержание')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    comments = GenericRelation('Comment')
+    likes = GenericRelation('Like')
 
 
 class BaseContent(models.Model):
@@ -58,6 +60,7 @@ class BaseContent(models.Model):
     text = models.TextField(verbose_name='Текст')
     views_count = models.PositiveIntegerField(verbose_name='Кол-во просмотров', default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    genre = models.ForeignKey('Genre', on_delete=models.CASCADE, verbose_name='Жанр', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     comments = GenericRelation('Comment')
     likes = GenericRelation('Like')
@@ -98,7 +101,7 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='likes', verbose_name='Пользователь')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -106,3 +109,13 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ('user', 'content_type', 'object_id')
+
+class Genre(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Название жанра')
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'

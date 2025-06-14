@@ -1,8 +1,16 @@
+import re
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Value, CharField
-from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponseBadRequest, Http404
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from itertools import chain
-from Zadvorkislozhnogo.models import User, Poem, Story, Audiobook
+from Zadvorkislozhnogo.models import (
+    User, Poem, Story, 
+    Audiobook, Like, Comment
+)
 
 def index(request):
     
@@ -23,3 +31,85 @@ def index(request):
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+
+@login_required
+def toggle_like(request, model_name, object_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Only POST allowed')
+
+    try:
+        content_type = ContentType.objects.get(model=model_name.lower())
+        model_class = content_type.model_class()
+        obj = get_object_or_404(model_class, id=object_id)
+    except ContentType.DoesNotExist:
+        raise Http404("Model not found")
+
+    like, created = Like.objects.get_or_create(
+        user=request.user,
+        content_type=content_type,
+        object_id=obj.id
+    )
+
+    if not created:
+        like.delete()
+
+    return HttpResponseRedirect(reverse(f"main:{model_name}_detail", kwargs={'pk': obj.id}))
+
+@login_required
+def create_comment(request, model_name, object_id):
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Only POST allowed')
+
+    try:
+        content_type = ContentType.objects.get(model=model_name.lower())
+        model_class = content_type.model_class()
+        obj = get_object_or_404(model_class, id=object_id)
+    except ContentType.DoesNotExist:
+        raise Http404("Model not found")
+
+    Comment.objects.create(
+        user=request.user,
+        content_type=content_type,
+        object_id=obj.id,
+        text=request.POST.get("text", "")
+    )
+
+    return HttpResponseRedirect(reverse(f"main:{model_name}_detail", kwargs={'pk': obj.id}))
+
+def search_view(request):
+    query = request.GET.get('q', '').strip()
+    if not query:
+        return render(request, 'items/items.html', {
+                'title': "Строка поиска пуста", 
+                'items': []
+            })
+
+    try:
+        pattern = re.compile(query, re.IGNORECASE)
+    except re.error:
+        return render(request, 'search/items.html', {
+            'title': "Ошибка в строке поиска",
+            'items': []
+        })
+
+    def filter_queryset(model):
+        return [
+            obj 
+            for obj 
+            in model.objects.all().annotate(content_type=Value(
+                model._meta.model_name, output_field=CharField()
+            )) if pattern.search(obj.title)
+        ]
+
+    results = (
+        [x for x in filter_queryset(Story)] +
+        [x for x in filter_queryset(Poem)] +
+        [x for x in filter_queryset(Audiobook)]
+    )
+
+    print(results)  # Debugging output
+    
+    return render(request, 'items/items.html', {
+        'title': "Результаты поиска" if results else "Ничего не найдено",
+        'items': results
+    })

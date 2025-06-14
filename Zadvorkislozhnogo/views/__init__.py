@@ -7,6 +7,9 @@ __all__ = [
     "profile",
     "author_profile",
     "authors",
+    "EditProfile",
+    "toggle_subscription",
+    "my_subscriptions",
 
     "PoemListView",
     "PoemDetailView",
@@ -14,13 +17,22 @@ __all__ = [
 
     "index",
     "pageNotFound",
+    "toggle_like",
+    "create_comment",
+    "search_view",
     
     "StoryListView",
     "StoryDetailView",
     "StoryCreateView",
 
-    "audiobooks",
-    "blog",
+    "AudiobookListView",
+    "AudiobookDetailView",
+    "AudiobookCreateView",
+    
+    "BlogListView",
+    "BlogDetailView",
+    "BlogCreateView",
+    
     "chart_view"
 ]
 
@@ -33,11 +45,17 @@ from .users_views import (
     profile,
     author_profile,
     authors,
+    EditProfile,
+    toggle_subscription,
+    my_subscriptions,
 )
 from .poem_views import (PoemListView, PoemDetailView, PoemCreateView)
 from .misc_views import (
     index,
     pageNotFound,
+    toggle_like,
+    create_comment,
+    search_view,
 )
 from .stories_views import (
     StoryListView,
@@ -45,10 +63,14 @@ from .stories_views import (
     StoryCreateView,
 )
 from .audiobooks_views import (
-    audiobooks
+    AudiobookListView,
+    AudiobookDetailView,
+    AudiobookCreateView,
 )
 from .blog_views import (
-    blog,
+    BlogListView,
+    BlogDetailView,
+    BlogCreateView,
 )
 from .chart_views import (
     chart_view,

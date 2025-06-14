@@ -1,3 +1,4 @@
+from django.db.models import Value, CharField
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse
 from Zadvorkislozhnogo.models import Poem
@@ -9,12 +10,14 @@ class PoemListView(ListView):
     context_object_name = 'items'
 
     def get_queryset(self):
-        return Poem.objects.all().order_by('-created_at')
+        return Poem.objects.all().order_by('-created_at').annotate(
+            content_type=Value("poem", output_field=CharField()),
+            model_name=Value("poem", output_field=CharField())
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихи'
-        context['content_type_poem'] = True
         return context
 
 class PoemDetailView(DetailView):
@@ -31,6 +34,13 @@ class PoemDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Стихотворение'
+        context['item'].model_name = self.model._meta.model_name
+        if self.request.user.is_authenticated:
+            context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
+        else:
+            context['is_user_liked'] = False
+        context['interactions'] = ["Комментарии", "Лайки"]
+        context['count'] = [self.object.likes.count(), self.object.comments.count()]
         return context
 
 class PoemCreateView(CreateView):

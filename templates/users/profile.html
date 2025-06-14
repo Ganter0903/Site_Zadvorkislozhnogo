@@ -18,7 +18,7 @@
           <p class="mb-3">Мои произведения</p>
           <a class="btn btn-outline-primary" href="{% url 'main:poem_create' %}">Новое стихотворение</a>
           <a class="btn btn-outline-primary" href="{% url 'main:story_create' %}">Новый рассказ</a>
-          <a class="btn btn-outline-primary" href="{% url 'main:poem_create' %}">Новая аудиокнига</a>
+          <a class="btn btn-outline-primary" href="{% url 'main:audiobook_create' %}">Новая аудиокнига</a>
           <div class="mt-4">
             {% for item in user_items %}
             <div class="work-entry d-flex align-items-center">
@@ -28,6 +28,8 @@
                   <a href="{% url 'main:story_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
                 {% elif item.content_type == 'poem' %}
                   <a href="{% url 'main:poem_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
+                {% elif item.content_type == 'audiobook' %}
+                  <a href="{% url 'main:audiobook_detail' item.pk %}" class="text-body text-decoration-none">{{ item.title }}</a>
                 {% else %}
                   <span class="text-muted">Неизвестный тип публикации</span>
                 {% endif %}
@@ -44,12 +46,12 @@
       <div class="col">
         <div class="panel">
           <div class="right-menu">
-            <a href="#" class="disabled-link"><i class="fas fa-user-edit"></i> Редактировать профиль</a>
-            <a href="#" class="disabled-link"><i class="fas fa-heart"></i> Мои подписки</a>
+            <a href="{% url 'main:edit_profile' %}"><i class="fas fa-user-edit"></i> Редактировать профиль</a>
+            <a href="{% url 'main:my_subscriptions' %}"><i class="fas fa-heart"></i> Мои подписки</a>
             <a href="#" class="disabled-link"><i class="fas fa-newspaper"></i> Новости</a>
             <a href="#" class="disabled-link"><i class="fas fa-bookmark"></i> Мои закладки</a>
             <a href="#" class="disabled-link"><i class="fas fa-envelope"></i> Мои сообщения</a>
-            <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+            <a href="#" class="disabled-link"><i class="fas fa-question-circle"></i> Помощь</a>
             <a href="{% url 'main:chart' %}"><i class="fas fa-chart-pie"></i> Аналитика</a>
           </div>
         </div>

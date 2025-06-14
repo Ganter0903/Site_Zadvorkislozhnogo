@@ -4,52 +4,49 @@
 
 {% block content %}
 <div class="container">
-  <div class="work-container">
-    <div class="work-title">Скоро новый рассказ</div>
-    <div class="work-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mollis aliquam ligula in viverra.
-      Proin nulla nunc, porttitor a libero ac, rutrum blandit purus. Pellentesque et vestibulum elit.
-      Vestibulum iaculis ante id ex suscipit posuere. Maecenas ac tortor dolor...
+  
+  {% if user.is_authenticated %}
+    <div class="d-flex justify-content-between">
+      <a href="{% url 'main:blog_create' %}" class="btn btn-primary">Новая запись</a>
     </div>
+  {% endif %}
 
-    <div class="author-block">
-      <img src="https://randomuser.me/api/portraits/men/45.jpg" class="author-avatar" alt="avatar">
-      <div>Иванов Иван Иванович</div>
+  {% for item in items %}
+    <div class="work-container">
+      <a href="{% url 'main:blog_detail' item.pk %}" class="work-title text-body text-decoration-none">{{ item.title }}</a>
+      <div class="work-text">
+        {{ item.content|truncatewords:50 }}
+      </div>
+
+      <div class="author-block">
+        <img src="{{ item.author.get_avatar_url }}" class="author-avatar" alt="avatar">
+        <div>{{ item.author.first_name }} {{ item.author.last_name }}</div>
+      </div>
+
+      <div class="interactions d-flex justify-content-center gap-4">
+
+          <form action="{% url 'main:toggle_like' item.model_name item.id %}" method="post" class="like-form">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link text-decoration-none text-dark p-0 like">
+                  {% if is_user_liked %}
+                      <i class="bi bi-heart-fill like-btn" style="color: red"></i>
+                  {% else %}
+                      <i class="bi bi-heart like-btn"></i>
+                  {% endif %}
+                  <span class="like-count">{{ item.likes.count }}</span>
+              </button>
+          </form>
+
+          <a href="{% url 'main:blog_detail' item.pk %}" class="text-decoration-none comment text-dark">
+              <i class="bi bi-chat"></i> {{ item.comments.count }}
+          </a>
+
+          <a href="#" class="text-decoration-none fav text-dark">
+              <i class="bi bi-bookmark"></i> 0
+          </a>
+      </div>
     </div>
+  {% endfor %}
 
-    {% include "includes/inc_interactions.html" %}
-  </div>
-
-  <div class="work-container">
-    <div class="work-title">Как я писал "Новое"</div>
-    <div class="work-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mollis aliquam ligula in viverra.
-      Proin nulla nunc, porttitor a libero ac, rutrum blandit purus. Pellentesque et vestibulum elit.
-      Vestibulum iaculis ante id ex suscipit posuere. Maecenas ac tortor dolor...
-    </div>
-
-    <div class="author-block">
-      <img src="https://randomuser.me/api/portraits/men/45.jpg" class="author-avatar" alt="avatar">
-      <div>Иванов Иван Иванович</div>
-    </div>
-
-    {% include "includes/inc_interactions.html" %}
-  </div>
-
-  <div class="work-container">
-    <div class="work-title">Мой первый блог</div>
-    <div class="work-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mollis aliquam ligula in viverra.
-      Proin nulla nunc, porttitor a libero ac, rutrum blandit purus. Pellentesque et vestibulum elit.
-      Vestibulum iaculis ante id ex suscipit posuere. Maecenas ac tortor dolor...
-    </div>
-
-    <div class="author-block">
-      <img src="https://randomuser.me/api/portraits/men/45.jpg" class="author-avatar" alt="avatar">
-      <div>Иванов Иван Иванович</div>
-    </div>
-
-    {% include "includes/inc_interactions.html" %}
-  </div>
 </div>
 {% endblock %}
