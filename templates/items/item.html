@@ -55,5 +55,39 @@
       </div>
 
     </div>
+
+    {% if user == item.author %}
+    <div class="work-container">
+      <div class="row mb-4">
+        <div class="col">
+            <div class="card" style="width: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}: взаимодействия</h5>
+                    <canvas id="interactionsChart"></canvas>
+                </div>
+            </div>  
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
 </div>
+
+<script>
+    const interactions = {{ interactions|safe }};
+    const count = {{ count|safe }};
+
+    new Chart(document.getElementById('interactionsChart'), {
+        type: 'bar',
+        data: {
+        labels: interactions,
+        datasets: [{
+            label: 'Взаимодействия',
+            data: count,
+            backgroundColor: 'purple'
+        }]
+        }
+    });
+</script>
+
 {% endblock %}

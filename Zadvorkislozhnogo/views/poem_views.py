@@ -39,6 +39,8 @@ class PoemDetailView(DetailView):
             context['is_user_liked'] = self.request.user.likes.filter(object_id=self.object.id, content_type__model=self.model._meta.model_name).exists()
         else:
             context['is_user_liked'] = False
+        context['interactions'] = ["Комментарии", "Лайки"]
+        context['count'] = [self.object.likes.count(), self.object.comments.count()]
         return context
 
 class PoemCreateView(CreateView):
