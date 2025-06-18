@@ -24,6 +24,11 @@
       </div>
 
       {% include "includes/inc_interactions.html" %}
+      {% if user == item.author %}
+        {% with 'main:'|add:item.model_name|add:"_delete" as delete_url_name %}
+          <a class="btn btn-danger mt-3" href="{% url delete_url_name item.id %}">Удалить</a>
+        {% endwith %}
+      {% endif %}
     </div>
 
     <div class="work-container">

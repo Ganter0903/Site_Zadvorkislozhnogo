@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Подтверждение удаления{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Подтверждение удаления</h1>
+    <p>Вы уверены, что хотите удалить "{{ item.title }}"?</p>
+    {% with delete_url_name='main:'|add:item.model_name|add:"_delete" detail_url_name='main:'|add:item.model_name|add:"_detail" %}
+    <form method="post" action="{% url delete_url_name item.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url detail_url_name item.id %}" class="btn btn-secondary">Отмена</a>
+    </form>
+    {% endwith %}
+</div>
+{% endblock %}
