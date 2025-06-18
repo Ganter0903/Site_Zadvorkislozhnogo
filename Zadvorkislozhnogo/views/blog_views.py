@@ -1,5 +1,5 @@
 from django.db.models import Value, CharField
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse
 from Zadvorkislozhnogo.models import Blog
 from Zadvorkislozhnogo.forms import BlogForm
@@ -55,3 +55,17 @@ class BlogCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('Zadvorkislozhnogo:blog_detail', kwargs={'pk': self.object.pk})
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    template_name = 'items/item_confirm_delete.html'
+    context_object_name = 'item'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Удаление блога'
+        context['item'].model_name = self.model._meta.model_name
+        return context
+
+    def get_success_url(self):
+        return reverse('Zadvorkislozhnogo:blogs')
