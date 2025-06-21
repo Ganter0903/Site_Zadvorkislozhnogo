@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Poem, Audiobook, Story, Like, Comment, Blog, Subscription, Genre
+from .models import User, Poem, Audiobook, Story, Like, Comment, Blog, Subscription, Genre, About, Document, FAQ, Feedback
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -45,3 +45,27 @@ class GenreAdmin(admin.ModelAdmin):
     list_display = ("title",)
     search_fields = ("title",)
     ordering = ("title",)
+
+@admin.register(About)
+class AboutAdmin(admin.ModelAdmin):
+    list_display = ("title", "content")
+    search_fields = ("title",)
+    ordering = ("-id",)
+
+@admin.register(Document)
+class DocumentAdmin(admin.ModelAdmin):
+    list_display = ("title", "created_at")
+    search_fields = ("title",)
+    ordering = ("-created_at",)
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ("question", "answer")
+    search_fields = ("question",)
+    ordering = ("-id",)
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ("user", "content", "created_at")
+    search_fields = ("user__email", "content")
+    ordering = ("-created_at",)

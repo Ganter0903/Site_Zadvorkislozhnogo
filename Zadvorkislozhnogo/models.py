@@ -119,3 +119,51 @@ class Genre(models.Model):
     class Meta:
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
+
+class About(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    content = models.TextField(verbose_name='Содержание')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'О нас'
+        verbose_name_plural = 'О нас'
+    
+    def __str__(self):
+        return self.title
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=255, verbose_name='Вопрос')
+    answer = models.TextField(verbose_name='Ответ')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'Часто задаваемый вопрос'
+        verbose_name_plural = 'Часто задаваемые вопросы'
+    
+    def __str__(self):
+        return self.question
+
+class Document(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    file = models.FileField(upload_to='documents/', verbose_name='Файл')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'Документ'
+        verbose_name_plural = 'Документы'
+    
+    def __str__(self):
+        return self.title
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    content = models.TextField(verbose_name='Содержание отзыва')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+    
+    def __str__(self):
+        return f'Отзыв от {self.user.email} - {self.created_at.strftime("%Y-%m-%d %H:%M")}'
