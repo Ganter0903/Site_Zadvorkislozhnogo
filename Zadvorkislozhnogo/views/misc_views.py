@@ -116,7 +116,7 @@ def search_view(request):
     })
 
 def about_view(request):
-    about = About.objects.first()
+    about = About.objects.last()
     if not about:
         raise Http404("About page not found")
     
@@ -133,13 +133,6 @@ def faq_list_view(request):
     return render(request, 'faq.html', {
         'title': "Часто задаваемые вопросы",
         'faqs': faqs
-    })
-
-def faq_detail_view(request, pk):
-    faq = get_object_or_404(FAQ, pk=pk)
-    return render(request, 'faq_detail.html', {
-        'title': faq.question,
-        'faq': faq
     })
 
 def document_list_view(request):
@@ -166,4 +159,9 @@ def feedback_form_view(request):
 
     return render(request, 'feedback_form.html', {
         'title': "Оставить отзыв"
+    })
+
+def feedback_success_view(request):
+    return render(request, 'feedback_success.html', {
+        'title': "Спасибо за ваш отзыв!"
     })

@@ -21,6 +21,11 @@ __all__ = [
     "toggle_like",
     "create_comment",
     "search_view",
+    "about_view",
+    "faq_list_view",
+    "document_list_view",
+    "feedback_form_view",
+    "feedback_success_view",
     
     "StoryListView",
     "StoryDetailView",
@@ -60,6 +65,11 @@ from .misc_views import (
     toggle_like,
     create_comment,
     search_view,
+    about_view,
+    faq_list_view,
+    document_list_view,
+    feedback_form_view,
+    feedback_success_view,
 )
 from .stories_views import (
     StoryListView,
