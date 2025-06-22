@@ -9,7 +9,8 @@ from django.urls import reverse
 from itertools import chain
 from Zadvorkislozhnogo.models import (
     User, Poem, Story, 
-    Audiobook, Like, Comment
+    Audiobook, Like, Comment,
+    About, Document, FAQ, Feedback
 )
 
 def index(request):
@@ -112,4 +113,55 @@ def search_view(request):
     return render(request, 'items/items.html', {
         'title': "Результаты поиска" if results else "Ничего не найдено",
         'items': results
+    })
+
+def about_view(request):
+    about = About.objects.last()
+    if not about:
+        raise Http404("About page not found")
+    
+    return render(request, 'about.html', {
+        'title': "О нас",
+        'about': about
+    })
+
+def faq_list_view(request):
+    faqs = FAQ.objects.all()
+    if not faqs:
+        raise Http404("FAQ page not found")
+    
+    return render(request, 'faq.html', {
+        'title': "Часто задаваемые вопросы",
+        'faqs': faqs
+    })
+
+def document_list_view(request):
+    documents = Document.objects.all()
+    if not documents:
+        raise Http404("Documents page not found")
+    
+    return render(request, 'documents.html', {
+        'title': "Документы",
+        'documents': documents
+    })
+
+def feedback_form_view(request):
+    if request.method == 'POST':
+        content = request.POST.get('content', '').strip()
+        if not content:
+            return render(request, 'feedback_form.html', {
+                'title': "Ошибка",
+                'error': "Содержание отзыва не может быть пустым."
+            })
+        
+        Feedback.objects.create(user=request.user, content=content)
+        return HttpResponseRedirect(reverse('main:feedback_success'))
+
+    return render(request, 'feedback_form.html', {
+        'title': "Оставить отзыв"
+    })
+
+def feedback_success_view(request):
+    return render(request, 'feedback_success.html', {
+        'title': "Спасибо за ваш отзыв!"
     })

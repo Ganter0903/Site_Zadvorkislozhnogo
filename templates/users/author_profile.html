@@ -86,12 +86,32 @@
 
       <!-- Аудиокниги -->
       <div class="tab-pane fade" id="audio">
-        <p>Раздел в разработке.</p>
+        {% for audiobook in author_audiobooks %}
+        <div class="work-card d-flex align-items-center">
+          <img src="{{ avatar }}" alt="" width="50" height="50" class="rounded-circle me-3">
+          <div>
+            <a href="{% url 'main:audiobook_detail' audiobook.pk %}" class="text-decoration-none text-dark">
+              <div class="work-title">{{ audiobook.title }}</div>
+            </a>
+            <div class="work-meta-1">{{ audiobook.views_count }} просмотров &nbsp;·&nbsp; {{ audiobook.created_at|date:'d.m.Y' }}</div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
 
       <!-- Блог -->
       <div class="tab-pane fade" id="blog">
-        <p>Раздел в разработке.</p>
+        {% for blog in author_blogs %}
+        <div class="work-card d-flex align-items-center">
+          <img src="{{ avatar }}" alt="" width="50" height="50" class="rounded-circle me-3">
+          <div>
+            <a href="{% url 'main:blog_detail' blog.pk %}" class="text-decoration-none text-dark">
+              <div class="work-title">{{ blog.title }}</div>
+            </a>
+            <div class="work-meta-1">{{ blog.created_at|date:'d.m.Y' }}</div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
 

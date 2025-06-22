@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="work-title mb-3">
+    <div class="text-body text-center">{{ title }}</div>
+  </div>
+  <div class="tab-content">
+    {% for item in documents %}
+    <div class="tab-pane fade show active" id="poetry">
+      <div class="work-card d-flex align-items-center">
+        <img src="/static/Zadvorkislozhnogo/images/file-earmark-text.svg" alt="" width="50" height="50" class="me-3">
+        <div>
+          <div class="work-title">
+            <a href="{{ item.file.url }}" class="text-body text-decoration-none">{{ item.title }}</a>
+          </div>
+          <div class="work-meta-1">{{ item.created_at }}</div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

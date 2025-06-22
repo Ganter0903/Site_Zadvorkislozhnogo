@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="work-container">
+        <div class="work-title">О нас</div>
+        {{ about.content }}
+    </div>
+</div>
+{% endblock %}

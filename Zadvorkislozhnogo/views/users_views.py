@@ -153,6 +153,8 @@ def author_profile(request, pk):
         "account_age": (now() - author.date_joined).days,
         "author_poems": author.poem_set.all().order_by('-created_at'),
         "author_stories": author.story_set.all().order_by('-created_at'),
+        "author_audiobooks": author.audiobook_set.all().order_by('-created_at'),
+        "author_blogs": author.blog_set.all().order_by('-created_at'),
     }
     return render(request, 'users/author_profile.html', context_data)
 

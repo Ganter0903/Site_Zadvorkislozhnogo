@@ -8,7 +8,8 @@ from .views import (
     PoemListView, PoemDetailView, PoemCreateView, PoemDeleteView,
     toggle_like, create_comment,
     profile, login_view, register_view, verify_email, EditProfile, toggle_subscription, my_subscriptions,
-    forgot_password, chart_view, logout_view, search_view
+    forgot_password, chart_view, logout_view, search_view,
+    about_view, faq_list_view, document_list_view, feedback_form_view, feedback_success_view
 )
 
 app_name = 'main'
@@ -56,4 +57,10 @@ urlpatterns = [
     
     path('<str:model_name>/<int:object_id>/like/', toggle_like, name='toggle_like'),
     path('<str:model_name>/<int:object_id>/comment/', create_comment, name='create_comment'),
+
+    path('about/', about_view, name='about'),
+    path('faq/', faq_list_view, name='faq'),
+    path('documents/', document_list_view, name='documents'),
+    path('feedback/', feedback_form_view, name='feedback_form'),
+    path('feedback/success/', feedback_success_view, name='feedback_success'),
 ]

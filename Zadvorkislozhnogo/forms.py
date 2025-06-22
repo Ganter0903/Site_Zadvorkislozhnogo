@@ -3,10 +3,11 @@ from .models import Story, Poem, Audiobook, User, Blog
 
 class BaseContentForm(forms.ModelForm):
     class Meta:
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'genre']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'text': forms.Textarea(attrs={'class': 'form-control'}),
+            'genre': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class StoryForm(BaseContentForm):
